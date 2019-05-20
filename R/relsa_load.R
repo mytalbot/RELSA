@@ -1,6 +1,6 @@
 #' Loads data in RELSA Format
 #'
-#' The \code{relsa_load} function calculates 95% confidence intervals and mean values for provided sample baselines.
+#' The \code{relsa_load} function loads data into a ready-to-use format for RELSA.
 #'
 #' @param file dataset sample data frame
 #' @param treatment treatment string (e.g., "Transmitter")
@@ -13,27 +13,23 @@
 #' @export
 #'
 
-
 relsa_load <- function(file, treatment=NULL, condition=NULL){
-
 
   if ( is.null(treatment)==FALSE & is.null(condition)==FALSE) {
     set    <- read.table(file, header = T, row.names = 1,fill = TRUE, sep="\t" )
     set    <- set[set$treatment==treatment & set$condition==condition, ]
-  print("Yes 1")
+  print("Done!")
   } else if ( is.null(treatment)==FALSE ) {
     set    <- read.table(file, header = T, row.names = 1,fill = TRUE, sep="\t" )
     set    <- set[set$treatment==treatment, ]
-    print("Yes 2")
+    print("Done!")
   } else if ( is.null(condition)==FALSE) {
     set    <- read.table(file, header = T, row.names = 1,fill = TRUE, sep="\t" )
     set    <- set[set$condition==condition, ]
-    print("Yes 3")
+    print("Done!")
   }else{
     set      <- read.table(file, header = T, row.names = 1, fill = TRUE, sep="\t")
-    print("Yes 4")
+    print("Done!")
   }
-
-
   return(set)
 }

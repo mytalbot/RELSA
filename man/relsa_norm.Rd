@@ -17,5 +17,5 @@ relsa_norm(set, normthese = NULL, ontime = 1)
 \code{set} data.frame with normalized column
 }
 \description{
-The \code{relsa_norm} function calculates 95\% confidence intervals and mean values for provided sample baselines.
+The \code{relsa_norm} function normalizes defined variables to 100 % at a given time point.
 }

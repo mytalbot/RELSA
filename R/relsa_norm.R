@@ -1,6 +1,6 @@
 #' Data normalization for RELSA score calculation
 #'
-#' The \code{relsa_norm} function calculates 95\% confidence intervals and mean values for provided sample baselines.
+#' The \code{relsa_norm} function normalizes defined variables to 100 % at a given time point.
 #'
 #' @param set dataset sample data frame
 #' @param normthese variable string in the input data set that shall be normalized

@@ -20,5 +20,5 @@ relsa_baselines(dataset = NULL, bslday = -1, variables = NULL,
 \code{baseline} list with reference variables set to 100 \%, maximum reached values and some characteristics
 }
 \description{
-The \code{relsa_baselines} function calculates confidence intervals and mean values for provided sample baselines.
+The \code{relsa_baselines} function calculates baseline levels for the provided reference set.
 }

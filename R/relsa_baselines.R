@@ -1,6 +1,6 @@
 #' Baseline calculation
 #'
-#' The \code{relsa_baselines} function calculates confidence intervals and mean values for provided sample baselines.
+#' The \code{relsa_baselines} function calculates baseline levels for the provided reference set.
 #'
 #' @param dataset  sample data frame
 #' @param bslday time point in the data frame used for baseline calculation (i.e. day=-1)

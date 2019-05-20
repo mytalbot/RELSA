@@ -17,5 +17,5 @@ relsa_load(file, treatment = NULL, condition = NULL)
 \code{set} data.frame with set sample data
 }
 \description{
-The \code{relsa_load} function calculates 95% confidence intervals and mean values for provided sample baselines.
+The \code{relsa_load} function loads data into a ready-to-use format for RELSA.
 }

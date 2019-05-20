@@ -1,6 +1,6 @@
 #' Plot RELSA score and variables together
 #'
-#' The \code{relsa} function calculates 95% confidence intervals and mean values for provided sample baselines.
+#' The \code{relsa_plot} function visualizes the RELSA score alone or in combination with one of the variables.
 #'
 #' @param set dataset sample data frame
 #' @param RELSA RELSA object

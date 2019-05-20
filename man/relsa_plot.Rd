@@ -33,5 +33,5 @@ relsa_plot(set = NULL, RELSA, levels = NULL, animal = 1,
 \code{relsa} data.frame with RELSA scores for each variable, the sum and mean score
 }
 \description{
-The \code{relsa} function calculates 95% confidence intervals and mean values for provided sample baselines.
+The \code{relsa_plot} function visualizes the RELSA score alone or in combination with one of the variables.
 }
