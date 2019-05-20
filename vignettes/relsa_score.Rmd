@@ -1,0 +1,244 @@
+---
+title: "RELSA Score"
+author: "Steven R. Talbot"
+date: "2019-05-19"
+output: 
+    rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{RELSA_Score}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+
+```{r message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
+
+library(RELSA)
+source("C:/MHH Bleich/Papers/PostOPPaper/Relsa package/Paper_Clustering.R")
+```
+
+
+```{r include=FALSE}
+
+############ BSL & General ##################
+# load some data and subsets
+raw          <- relsa_load("C:/MHH Bleich/Papers/PostOPPaper/Data/post-op laura.txt", treatment = "Transmitter" )
+
+### Preprocessing (normalization)
+vars         <- c("bwc", "bur2h","burON","hr","hrv", "temp", "act", "mgs")
+turnvars     <- c("hr", "mgs", "temp" )
+
+org          <- cbind(raw[,1:4], raw[,vars])
+pre          <- relsa_norm(org,   normthese=c("bur2h","burON","hr","hrv", "temp", "act", "mgs" ), ontime=1)
+
+### Baseline (unscaled BUT PREPROCESSED data): THE BSL Values are NORMALIZED!
+bsl          <- relsa_baselines(dataset=pre, bslday=-1, variables=vars, turnvars=turnvars)
+
+### Determine k clusters and levels for the reference set
+levels       <- relsa_levels(pre, mypath="C:/MHH Bleich/Papers/PostOPPaper/Relsa package/paper figures/Clusters/", bsl,
+                             filename="Burrowing levels", drops=c("bw","score"), turns=c("hr","mgs","temp"), relsaNA=NA, k=4,
+                             showScree="no", customCol= c("red","green","blue","magenta"), seed=123, myYlim=c(0,1.4), 
+                             saveTiff="yes")
+
+##### Single Tests #########################################
+testraw      <- relsa_load("C:/MHH Bleich/Papers/PostOPPaper/Data/post-op laura.txt" )
+vars         <- names(testraw[,-c(1:4)])
+pre_test     <- cbind(testraw[,1:4], testraw[,vars])
+testset      <- relsa_norm(pre_test, normthese=c("bur2h","burON","hr","hrv", "temp", "act", "mgs" ), ontime=1)
+
+animal       <- 1
+RELSA        <- relsa(set=testset, bsl, a=animal, drop=c("bw","score","mgs30","mgs180" ), turnvars=c("hr", "mgs","temp" ), relsaNA=NA)
+relsascore   <- as.numeric(unlist(RELSA$relsa$rms))
+
+animal       <- 16
+RELSA2       <- relsa(set=testset, bsl, a=animal, drop=c("bw","score","mgs30","mgs180" ), turnvars=c("hr", "mgs","temp" ), relsaNA=NA)
+relsascore2  <- as.numeric(unlist(RELSA2$relsa$rms))
+
+```
+
+## RELSA: Relative Severity Assessment (RELSA) Score
+The `relsa` function from the RELSA package allows the calculation of a (composite) score for relative severity assessment in individual animals using collections of experimental outcome variables or single parameters. The RELSA Vignette covers how to load, access and calculate RELSA scores in detail.
+
+The purpose of this Vignette is to provide a better understanding of what RELSA is, how it is calculated and what it can be used for.
+
+RELSA scores express severity in two ways:
+
+1. The score provides a metric for direct comparison within relative context.
+2. Relative context is established by providing a reference model with assumed (biological) severity.
+
+There is a possible third option in which *k-means* clustering will be applied to the baseline model to obtain *k*-levels within data range. This way an unbiased subsetting of the calculated scores into classes is achieved (for further classification analysis etc).
+
+Thus, animals from different experimental backgrounds and conditions can be compared. However, it is important to note that the RELSA score is a reflection of what happens in the measured data. If the data, for some reason, do not reflect severity in animals the RELSA score might be unsuited for comparisons.
+
+## RELSA calculation
+This section explains how the RELSA score is calculated step by step. The `relsa` function accepts normalized data in RELSA format. How these tables can be obtained is explained in detail in the RELSA Vignette. The function also requires a reference model (bsl) to build relative context to an animal model with "known" severity. This severity can be of qualitative nature as tested animals will always be compared to this model - thus the word "relative" in RELSA. With the `drop` object variables can be excluded from the current analysis. `turnvars` defines variables where measured values *in*crease rather than *de*crease when severity impacts the animal.
+
+```
+# RELSA function
+relsa (set, bsl, a=1, drop=NULL, turnvars=NULL)
+```
+
+### Subsetting of the normalized test data 
+The resulting table of normalized variables looks like the following example for a transmitter-operated mouse with 12 measured variables. Not all of them are needed in the RELSA calculation (bw, bwc and clinical score are strongly correlated so that just bwc is used; further, mouse grimace scale 30 min and 180 lack baseline values and show missing data on the following days, so that they can be skipped as well). 
+
+
+```{r include=FALSE}
+set      <- testset
+a        <- 1
+drop     <- c("bw","score","mgs30","mgs180" )
+turnvars <- c("hr", "mgs","temp" )
+relsaNA  <- NA
+
+### Build a data subset defined by the chosen animal
+welchetiere  <- unique(set$id )
+tage         <- length(set[set$id == welchetiere[a], 4])
+Fr           <- NULL
+subdata      <- round(set[set$id == welchetiere[a], 4:dim(set)[2]],2)
+days         <- subdata$day
+
+```
+
+```{r echo=FALSE}
+head(subdata)
+```
+
+
+### Calculation of differences
+In the next step, differences to baseline values are calculated. As the baseline is 100 \%\ in both "directions" (increasing and decreasing values), the approach is rather straight forward:
+
+* for decreasing values  
+delta = 100 - subdata[-1]
+
+* for increasing values  
+delta = 100 - subdata[-1]  
+delta[,turnvars] = delta[, turnvars]* -1  
+
+With [-1] the daily baseline values at day=-1 are not recognized in the calculation.  
+
+Also, after this step all differences <0 are set to 0 so that there are no negative values. A negative value means full recovery. Negative values play no role in the RELSA calculation so that they are eliminated. Zeros also point to non-missing but recovered data. This difference is important since missing values will not contribute to mathematical calculations such as the mean. This would skew the results and give weight to variables that are not present in the data.
+
+An example for a cleaned difference matrix (D) is shown in the following example (in which the following variables were dropped: c("bw","score","mgs30","mgs180" ) and turned: c("hr", "mgs","temp" ). Missing data are indicated as NAs.
+
+```{r include=FALSE}
+ ### Drop variables (check if the dropped vars are in the set, if so: do it)
+  if( length(turnvars[turnvars %in% names(subdata)])==0 ){
+    turnvars <- NULL
+  }else{}
+```
+
+```{r echo=FALSE}
+  if( is.null(drop)==TRUE ){
+  }else{
+    subdata[names(subdata) %in% drop] <- NULL
+    turnvars                          <- turnvars[!(turnvars %in% drop)] # kick out dropped variables (for permutation!)
+  }
+
+  ### calculate difference matrix for the animal & turn vor positive variables
+  if( is.null(turnvars)==TRUE ){
+    delta            <- 100 - subdata[-1]
+    bsdelta          <- 100 - bsl$maxsev
+  }else{
+    delta            <- 100 - subdata[-1]
+    delta[,turnvars] <- delta[, turnvars]* -1
+
+    bsdelta          <- 100 - bsl$maxsev         # for the extreme values of baseline vars
+    bsdelta[turnvars]<- bsdelta[turnvars]* -1
+  }
+
+
+
+  ### set all negative values to NA - otherwise zero would allow usage in the mean!
+  delta[delta<0]     <- 0
+  delta              <- round(delta,2)
+  head(delta)
+  
+  # get the order of names in delta for baseline relsa score 2
+  namen              <- names(delta)
+  
+```
+
+
+
+### Calculation of the RELSA score
+The baseline model is required for context. The values in the baseline model show the extrema for each variable in the current model. As such, they are the maximum (or minimum) reached values coding for some virtually known or prospective severity. Every test animal with its unique values and variables will now be compared to these baseline values arithmetrically to yield a weight factor (wf):
+
+$$wf=\frac{D}{BSLextrema}$$
+For example, if the lowest reached body weight change (bwc) value in an animal of the training data is, e.g. 15 \%\ and the actual loss in a test animal is 11 \%\ , wf results to wf=11/15 = 0.73. In other words, the actual mouse reached 73 \%\ of the maximum bwc escalation of the baseline data. Since context is relevant here, this also means that the animal also experiences 73 \%\ of the maximum reached severity of the baseline model. This is repeated for each day and available variable.
+
+Following the example above, the resulting wfs are represented in the following matrix:
+
+```{r echo=FALSE}
+ delta$days <-NULL
+ wfactor    <- NULL
+    for(r in 1:dim(delta)[1]){
+      wfactor          <- as.data.frame(round( rbind(wfactor, delta[r,] / bsdelta[namen]), 2))
+    }
+ head(wfactor)
+  
+```
+
+The weights are showing the *magnitude of variable escalation*. They generalize the mean differences in each animal that are further regularized by the extrema of the reference model. Calculating the mean for these values will not reflect the actual situation in terms of severity. Because we are looking for extrema that indicate potential severity, magnitude matters. In statistics this is traditionally solved by squaring numbers. Therefore, we deem the root mean square of the combined weight factors as a reasonable choice for the final RELSA score calculation - giving larger deltas (weights) more weight. 
+
+$$RELSA=\sqrt{\frac{1}{n}\sum_{i=1}^n (wf_i)^2}$$
+
+```{r echo=FALSE}
+wf_sum             <- round(apply(wfactor, 1, sum, na.rm=T),2 ) # Summarize
+wf                 <- wf_sum  / (dim(wfactor)[2] - apply(apply(wfactor,2, is.na),1,sum))
+   
+if(length(wf)>0){
+  wf[is.nan(wf)] <- relsaNA
+}else{}
+
+# if weights are smaller 0, kill them!
+    wf[wf <0]        <- relsaNA
+    
+    # get NA positions for rms correction
+    na.idx           <- is.na(wf)
+
+    ####### RELSA: score 2: METHOD 2 (RMS)
+    # RMS RELSA
+    rms     <- c()
+    
+    for(l in 1:dim(delta)[1]){
+      RMS                <- sqrt( sum( wfactor[l, ]^2 ,na.rm=TRUE )/ (length(wfactor[l, ]) - sum(is.na(wfactor[l, ])))  )
+      #RMS                <- sqrt( sum( wfactor[l, ]^2 ,na.rm=TRUE )) # old
+      if( sum(is.na(wfactor[l, ]))==length(names(wfactor)) ){ RMS<-NA} else {}
+      rms[l]             <- RMS
+    }
+    rms[na.idx]          <- NA
+    rms                  <- as.data.frame(rms)
+    
+    final                <- data.frame(day=days, RELSA=round(rms,2))
+    colnames(final)      <- c("day", "RELSA")
+    head(final)
+```
+
+### Use-case: Comparison of sham vs transmitter implanted mice
+In the end, comparisons between, e.g. sham and transmitter-operated animals are possible. In the following example seven variables are used in the calculation of the respective RELSA scores (time points are days here). Day=-1 is the baseline physiological state and day=0 is post-operational state with expected maximum severity.
+
+It can clearly be seen that the relative severity of the transmitter implantation is larger than in the sham operated animal. However, the course of both lines are rather similar, indicating that experimental procedures are very well reflected in each of the two cases and differences can be attributed to severity escalation.
+
+Further, cluster levels show that the sham-operated animal recovers faster. Here, the slope of the RELSA curve is much steeper than in the transmitter-operated animal and values decrease much faster back to physiological levels (the sham animal recovers at around day 2 compared to day 8 in the transmitter-operated animal). 
+
+```{r echo=FALSE}
+
+# show raw data + RELSA
+plotset       <- relsa_plot(pre_test, RELSA, levels=levels, animal=animal, plotvar=NULL,
+                            plotRELSA=TRUE, myylim=c(80,120), myYlim=c(0,1.2), mypch=19)
+lines(-1:28, relsascore2, type="b", pch=19)
+  
+abline(h=levels$level1, lwd=1, lty=2)
+abline(h=levels$level2, lwd=1, lty=2)
+abline(h=levels$level3, lwd=1, lty=2)
+abline(h=levels$level4, lwd=1, lty=2)
+text(26,levels$level1+0.06, levels$level1 )
+text(26,levels$level2+0.06, levels$level2 )
+text(26,levels$level3+0.06, levels$level3 )
+text(26,levels$level4+0.06, levels$level4 )
+
+legend("topright",c("Transmitter/Carprofen","Sham/Carprofen"), col=c("red","black"), bty="n", pch=c(19,19), lty=c(1,1))
+
+```
+
+
+ 

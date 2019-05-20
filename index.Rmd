@@ -1,0 +1,24 @@
+
+## RELSA
+The RELSA score and RELSA package comprises a set of functions for **assessing relative severity in laboratory
+animals**. In animal-based research the problem of severity classification is crucial. As animals cannot communicate their 
+state of well-being, scientists need reliable tools for monitoring severity as closely as possible. It has been shown that 
+a diversity of behavioural tests (and others) may serve this purpose. However, the main issue with these approaches is that
+they are rather specific and difficult to transfer. A comprehensive and easy to use toolbox for the assessment and 
+comparison of different variables and animal models is missing. RELSA offers a first glimpse into this matter by taking 
+a holistic and integrative approach.
+
+## Installation
+
+You can install the development version of RELSA by running:
+
+```
+devtools::install_github("mytalbot/relsa")
+library(RELSA)
+```
+
+## Documentation
+This package is documented using pkgdown, and the resulting website is available at LINK, where detailed Tutorials can be found covering all of the package functionality.
+See LINK-reference for detailed function documentation.
+
+
