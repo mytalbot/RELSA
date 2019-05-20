@@ -12,7 +12,6 @@ library(RELSA)
 ```
 
 ## Documentation
-This package is documented using pkgdown, and the resulting website is available at LINK, where detailed Tutorials can be found covering all of the package functionality.
-See LINK-reference for detailed function documentation.
+This package is documented using pkgdown, and the resulting website is available [here](https://talbotsr.com/RELSA), where detailed Tutorials can be found covering all of the package functionality. See reference for detailed function documentation.
 
 
