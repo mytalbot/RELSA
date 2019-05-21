@@ -1,5 +1,5 @@
 
-<img src="man/figures/logo.png" align="center" alt="" />
+<img src="man/figures/logo.png" align="center" alt="" width="120" height="139"/>
 
 RELSA
 -----
