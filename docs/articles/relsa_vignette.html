@@ -11,6 +11,7 @@
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="RELSA Vignette">
 <meta property="og:description" content="">
+<meta property="og:image" content="/logo.png">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -244,7 +245,9 @@ Example data can be downloaded here: Download example data.</p>
 
 ############ Preparing the reference set ################
 ### Load some data and subsets
-raw          &lt;- relsa_load("path/filename.txt", treatment = "Transmitter" )
+library(RELSA)
+
+raw          &lt;- postop
 
 ### Preprocessing (normalization)
 vars         &lt;- c("bwc", "bur2h","burON","hr","hrv", "temp", "act", "mgs")
@@ -257,13 +260,13 @@ pre          &lt;- relsa_norm(org, normthese=c("bur2h","burON","hr","hrv","temp"
 bsl          &lt;- relsa_baselines(dataset=pre, bslday=-1, variables=vars, turnvars=turnvars)
 
 ### Determine k-clusters and levels for the reference set
-levels       &lt;- relsa_levels(pre, mypath=NULL, filename="Burrowing levels", drops=c("bw","score"), 
+levels       &lt;- relsa_levels(pre, mypath=NULL, bsl=bsl, filename="Burrowing levels", drops=c("bw","score"), 
                              turns=c("hr","mgs","temp"), relsaNA=NA, k=4, showScree="no", 
                              customCol= c("red","green","blue","magenta"), seed=123, myYlim=c(0,1.4),
                              saveTiff="no")
-  
+
 ############ Analyze individual animals (here: from the reference set) #################
-testraw      &lt;- relsa_load("path/filename.txt", treatment = "Transmitter" )
+testraw      &lt;- raw
 vars         &lt;- names(testraw[,-c(1:4)])
 pre_test     &lt;- cbind(testraw[,1:4], testraw[,vars])
 testset      &lt;- relsa_norm(pre_test, normthese=c("bur2h","burON","hr","hrv","temp","act","mgs"), ontime=1)
@@ -271,7 +274,7 @@ testset      &lt;- relsa_norm(pre_test, normthese=c("bur2h","burON","hr","hrv","
 animal       &lt;- 1
 RELSA        &lt;- relsa(set=testset, bsl, a=animal, drop=c("bw","score","mgs30","mgs180"), 
                       turnvars=c("hr","mgs","temp"), relsaNA=NA)
- 
+
 # show raw data + RELSA
 plotset      &lt;- relsa_plot(pre_test, RELSA, levels=levels, animal=animal, plotvar=NULL,
                            plotRELSA=TRUE, myylim=c(80,120), myYlim=c(0,1.4))</code></pre>

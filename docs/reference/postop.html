@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot RELSA score and variables together — relsa_plot • RELSA</title>
+<title>Transmitter operated mice — postop • RELSA</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,11 @@
 
 
 
-<meta property="og:title" content="Plot RELSA score and variables together — relsa_plot" />
+<meta property="og:title" content="Transmitter operated mice — postop" />
 
-<meta property="og:description" content="The relsa_plot function visualizes the RELSA score alone or in combination with one of the variables." />
+<meta property="og:description" content="Data from a transmitter implantation experiment with various behavioural data. Also includes sham-operated animals.
+Observation time was over 30 days, starting with day=-1 as baseline (physiological state). The treatment columns shows
+what operational state the animal is in and the condition field shows two possible types of analgesia." />
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -116,79 +118,51 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot RELSA score and variables together</h1>
-    <small class="dont-index">Source: <a href='https://github.com/mytalbot/RELSA/blob/master/R/relsa_plot.R'><code>R/relsa_plot.R</code></a></small>
-    <div class="hidden name"><code>relsa_plot.Rd</code></div>
+    <h1>Transmitter operated mice</h1>
+    <small class="dont-index">Source: <a href='https://github.com/mytalbot/RELSA/blob/master/R/postop.R'><code>R/postop.R</code></a></small>
+    <div class="hidden name"><code>postop.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>The <code>relsa_plot</code> function visualizes the RELSA score alone or in combination with one of the variables.</p>
+    <p>Data from a transmitter implantation experiment with various behavioural data. Also includes sham-operated animals.
+Observation time was over 30 days, starting with day=-1 as baseline (physiological state). The treatment columns shows
+what operational state the animal is in and the condition field shows two possible types of analgesia.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>relsa_plot</span>(<span class='kw'>set</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>RELSA</span>, <span class='kw'>levels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>animal</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>plotvar</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>plotRELSA</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>myylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>70</span>, <span class='fl'>110</span>),
-  <span class='kw'>myYlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>2</span>), <span class='kw'>mypch</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>myXlab</span> <span class='kw'>=</span> <span class='st'>"time point"</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>set</th>
-      <td><p>dataset sample data frame</p></td>
-    </tr>
-    <tr>
-      <th>RELSA</th>
-      <td><p>RELSA object</p></td>
-    </tr>
-    <tr>
-      <th>levels</th>
-      <td><p>k+1 levels from kmeans calculations (relsa_levels function)</p></td>
-    </tr>
-    <tr>
-      <th>animal</th>
-      <td><p>which unique animal in the set?</p></td>
-    </tr>
-    <tr>
-      <th>plotvar</th>
-      <td><p>which variable shall be plotted (does not scale with RELSA score)</p></td>
-    </tr>
-    <tr>
-      <th>plotRELSA</th>
-      <td><p>plot the RELSA score "yes/no"?</p></td>
-    </tr>
-    <tr>
-      <th>myylim</th>
-      <td><p>custom y-axis limits (left axis)</p></td>
-    </tr>
-    <tr>
-      <th>myYlim</th>
-      <td><p>custom y-axis limits (right axis)</p></td>
-    </tr>
-    <tr>
-      <th>mypch</th>
-      <td><p>custom dot marker</p></td>
-    </tr>
-    <tr>
-      <th>myXlab</th>
-      <td><p>custom x-axis label</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <pre class="usage"><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>postop</span>)</pre>
+        
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p><code>relsa</code> data.frame with RELSA scores for each variable, the sum and mean score</p>
+    <p>A data frame with post-op data.</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>postop</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>postop</span>)</div><div class='output co'>#&gt;       id   treatment condition day   bw       bwc score      mgs     mgs30
+#&gt; 1 Ca_001 Transmitter Carprofen  -1 18.4 100.00000     0 0.100000        NA
+#&gt; 2 Ca_001 Transmitter Carprofen   0 16.1  87.50000     2 0.112500 0.8611607
+#&gt; 3 Ca_001 Transmitter Carprofen   1 16.7  90.76087     2 0.193750        NA
+#&gt; 4 Ca_001 Transmitter Carprofen   2 17.1  92.93478     2 0.165625        NA
+#&gt; 5 Ca_001 Transmitter Carprofen   3 17.3  94.02174     1       NA        NA
+#&gt; 6 Ca_001 Transmitter Carprofen   4 17.3  94.02174     1 0.065625        NA
+#&gt;   mgs180    bur2h    burON       hr       hrv     temp     act
+#&gt; 1     NA 56.39602 71.94116 453.5596 12.432154 36.61165 1064.84
+#&gt; 2 0.3625 14.92109 44.69154 660.5897  2.051861 36.18393  125.54
+#&gt; 3     NA 51.07296 97.63948 584.9174  4.843867 37.49761  407.34
+#&gt; 4     NA 42.28045 99.00850 538.0367  6.767956 37.13743  351.64
+#&gt; 5     NA       NA       NA 482.1560  7.072865 36.71055  286.28
+#&gt; 6     NA 54.90473 69.16020 525.5229  7.134940 37.08358  387.30</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#value">Value</a></li>
-          </ul>
+      <li><a href="#format">Format</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>
