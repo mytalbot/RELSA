@@ -1,28 +1,17 @@
----
-  output: github_document
----
 
-
-```{r, echo = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "README-"
-)
-```
-
-# RELSA <img src="man/figures/logo.png" align="right" width="120" />
+RELSA <img src="man/figures/logo.png" align="right" width="120" />
+==================================================================
 
 The RELSA package contains a set of functions for **assessing relative severity in laboratory animals**. In animal-based research the problem of severity classification is crucial. As animals cannot communicate their state of well-being, scientists need reliable tools for monitoring severity as closely as possible. It has been shown that a diversity of behavioural tests (and others) may serve this purpose. However, the main issue with these approaches is that they are rather specific and difficult to transfer. A comprehensive and easy to use toolbox for the assessment and comparison of different variables and animal models is missing. RELSA offers a first glimpse into this matter by combining any set of experimental outcome variables into a single composite score.
 
-## Installation
+Installation
+------------
 
 You can install the development version of RELSA by running:
 
-  ```
-devtools::install_github("mytalbot/relsa")
-library(RELSA)
-```
+`devtools::install_github("mytalbot/relsa") library(RELSA)`
 
-## Documentation
+Documentation
+-------------
+
 This package is documented using pkgdown, and the resulting website is available [here](https://talbotsr.com/RELSA), where detailed Tutorials can be found covering all of the package functionality. See reference for detailed function documentation.
