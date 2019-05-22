@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RELSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9000</span>
       </span>
     </div>
 
@@ -239,45 +239,24 @@ relsa_plot (set=NULL, RELSA, levels=NULL, animal=1, plotvar=NULL, plotRELSA=TRUE
 <div id="working-example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#working-example" class="anchor"></a>Working example</h2>
-<p>Provide a path and textfile with the reference and testset.<br>
-Example data can be downloaded here: Download example data.</p>
+<p>Uses the internal <code>postop</code> dataset for analysis.</p>
 <pre><code>library(RELSA)
 
-############ Preparing the reference set ################
-### Load some data and subsets
-library(RELSA)
-
+# Build model -------------------------------------------------------------
 raw          &lt;- postop
-
-### Preprocessing (normalization)
-vars         &lt;- c("bwc", "bur2h","burON","hr","hrv", "temp", "act", "mgs")
+vars         &lt;- c("bwc", "bur2h", "burON", "hr", "hrv", "temp", "act", "mgs")
 turnvars     &lt;- c("hr", "mgs", "temp" )
+pre          &lt;- relsa_norm(cbind(raw[,1:4], raw[,vars]), 
+                           normthese = c("bur2h", "burON", "hr", "hrv", "temp", "act", "mgs"), ontime = 1)
+bsl          &lt;- relsa_baselines(dataset = pre, bslday = -1, variables = vars, turnvars = turnvars)
+levels       &lt;- relsa_levels(pre, bsl = bsl, drops = c("bw", "score"), turns = c("hr", "mgs", "temp"),
+                             k = 4, customCol = c("red", "green", "blue", "magenta"))
 
-org          &lt;- cbind(raw[,1:4], raw[,vars])
-pre          &lt;- relsa_norm(org, normthese=c("bur2h","burON","hr","hrv","temp","act","mgs"), ontime=1)
-
-### Baseline/reference set calculations (with preprocessed data)
-bsl          &lt;- relsa_baselines(dataset=pre, bslday=-1, variables=vars, turnvars=turnvars)
-
-### Determine k-clusters and levels for the reference set
-levels       &lt;- relsa_levels(pre, mypath=NULL, bsl=bsl, filename="Burrowing levels", drops=c("bw","score"), 
-                             turns=c("hr","mgs","temp"), relsaNA=NA, k=4, showScree="no", 
-                             customCol= c("red","green","blue","magenta"), seed=123, myYlim=c(0,1.4),
-                             saveTiff="no")
-
-############ Analyze individual animals (here: from the reference set) #################
-testraw      &lt;- raw
-vars         &lt;- names(testraw[,-c(1:4)])
-pre_test     &lt;- cbind(testraw[,1:4], testraw[,vars])
-testset      &lt;- relsa_norm(pre_test, normthese=c("bur2h","burON","hr","hrv","temp","act","mgs"), ontime=1)
-
+# Test model --------------------------------------------------------------
 animal       &lt;- 1
-RELSA        &lt;- relsa(set=testset, bsl, a=animal, drop=c("bw","score","mgs30","mgs180"), 
-                      turnvars=c("hr","mgs","temp"), relsaNA=NA)
-
-# show raw data + RELSA
-plotset      &lt;- relsa_plot(pre_test, RELSA, levels=levels, animal=animal, plotvar=NULL,
-                           plotRELSA=TRUE, myylim=c(80,120), myYlim=c(0,1.4))</code></pre>
+RELSA        &lt;- relsa(set = pre, bsl, a = animal, 
+                      drop=c("bw", "score", "mgs30", "mgs180"), turnvars = turnvars)
+head(RELSA$relsa$rms)</code></pre>
 <div id="references" class="section level3 unnumbered">
 <h3 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h3>
@@ -316,7 +295,7 @@ plotset      &lt;- relsa_plot(pre_test, RELSA, levels=levels, animal=animal, plo
 
 
       <footer><div class="copyright">
-  <p>Developed by Steven R Talbot.</p>
+  <p>Developed by Steven Talbot.</p>
 </div>
 
 <div class="pkgdown">

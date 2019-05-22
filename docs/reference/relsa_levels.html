@@ -65,7 +65,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RELSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9000</span>
       </span>
     </div>
 
@@ -127,9 +127,10 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>relsa_levels</span>(<span class='no'>refset</span>, <span class='no'>mypath</span>, <span class='no'>filename</span>, <span class='no'>bsl</span>, <span class='kw'>drops</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>turns</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>relsaNA</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>showScree</span> <span class='kw'>=</span> <span class='st'>"no"</span>, <span class='kw'>customCol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>123</span>, <span class='kw'>myYlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1.4</span>), <span class='kw'>saveTiff</span> <span class='kw'>=</span> <span class='st'>"yes"</span>)</pre>
+    <pre class="usage"><span class='fu'>relsa_levels</span>(<span class='no'>refset</span>, <span class='no'>mypath</span>, <span class='kw'>filename</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>bsl</span> <span class='kw'>=</span> <span class='no'>bsl</span>,
+  <span class='kw'>drops</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>turns</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>relsaNA</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>4</span>,
+  <span class='kw'>showScree</span> <span class='kw'>=</span> <span class='st'>"no"</span>, <span class='kw'>customCol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>123</span>, <span class='kw'>myYlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>,
+  <span class='fl'>1.4</span>), <span class='kw'>showPlot</span> <span class='kw'>=</span> <span class='st'>"no"</span>, <span class='kw'>saveTiff</span> <span class='kw'>=</span> <span class='st'>"no"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -183,6 +184,10 @@
       <td><p>limits of the y-axis for the clustering</p></td>
     </tr>
     <tr>
+      <th>showPlot</th>
+      <td><p>shows the ordered data and colored cluster levels</p></td>
+    </tr>
+    <tr>
       <th>saveTiff</th>
       <td><p>yes/no whether to save the output as *.tiff file (if no, mypath is obsolete)</p></td>
     </tr>
@@ -207,7 +212,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by Steven R Talbot.</p>
+  <p>Developed by Steven Talbot.</p>
 </div>
 
 <div class="pkgdown">

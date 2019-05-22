@@ -5,11 +5,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>"Relative Severity Assessment (RELSA)" score for laboratory animals • RELSA</title>
+<title>Relative Severity Assessment Score for Laboratory Animals • RELSA</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="" relative severity assessment score for laboratory animals>
+<script src="pkgdown.js"></script><meta property="og:title" content="Relative Severity Assessment Score for Laboratory Animals">
 <meta property="og:description" content="The RELSA score and RELSA package comprises a set of functions for assessing relative severity in laboratory
    animals. In animal-based research the problem of severity classification is crucial. As animals cannot communicate their 
    state of well-being, scientists need reliable tools for monitoring severity as closely as possible. It has been shown that 
@@ -37,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">RELSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9000</span>
       </span>
     </div>
 
@@ -92,8 +92,10 @@
     
 <div id="relsa" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#relsa" class="anchor"></a>RELSA <img src="https://talbotsr.com/RELSA/logo.png" align="right" width="120">
+<a href="#relsa" class="anchor"></a>RELSA <img src="../../../../../MHH%20Bleich/Papers/PostOPPaper/Relsa%20package/RELSA/man/figures/logo.png" align="right" width="120">
 </h1></div>
+<!-- badges: start -->
+
 <p>The RELSA package contains a set of functions for <strong>assessing relative severity in laboratory animals</strong>. In animal-based research the problem of severity classification is crucial. As animals cannot communicate their state of well-being, scientists need reliable tools for monitoring severity as closely as possible. It has been shown that a diversity of behavioural tests (and others) may serve this purpose. However, the main issue with these approaches is that they are rather specific and difficult to transfer. A comprehensive and easy to use toolbox for the assessment and comparison of different variables and animal models is missing. RELSA offers a first glimpse into this matter by combining any set of experimental outcome variables into a single composite score.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
@@ -106,6 +108,34 @@ library(RELSA)</code></pre>
 <h2 class="hasAnchor">
 <a href="#documentation" class="anchor"></a>Documentation</h2>
 <p>This package is documented using pkgdown, and the resulting website is available <a href="https://talbotsr.com/RELSA">here</a>, where detailed Tutorials can be found covering all of the package functionality. See reference for detailed function documentation.</p>
+</div>
+<div id="example" class="section level2">
+<h2 class="hasAnchor">
+<a href="#example" class="anchor"></a>Example</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(RELSA)
+
+<span class="co"># Build model -------------------------------------------------------------</span>
+raw          &lt;-<span class="st"> </span>postop
+vars         &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"bwc"</span>, <span class="st">"bur2h"</span>, <span class="st">"burON"</span>, <span class="st">"hr"</span>, <span class="st">"hrv"</span>, <span class="st">"temp"</span>, <span class="st">"act"</span>, <span class="st">"mgs"</span>)
+turnvars     &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"hr"</span>, <span class="st">"mgs"</span>, <span class="st">"temp"</span> )
+pre          &lt;-<span class="st"> </span><span class="kw"><a href="reference/relsa_norm.html">relsa_norm</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cbind">cbind</a></span>(raw[,<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>], raw[,vars]), 
+                           <span class="dt">normthese =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"bur2h"</span>, <span class="st">"burON"</span>, <span class="st">"hr"</span>, <span class="st">"hrv"</span>, <span class="st">"temp"</span>, <span class="st">"act"</span>, <span class="st">"mgs"</span>), <span class="dt">ontime =</span> <span class="dv">1</span>)
+bsl          &lt;-<span class="st"> </span><span class="kw"><a href="reference/relsa_baselines.html">relsa_baselines</a></span>(<span class="dt">dataset =</span> pre, <span class="dt">bslday =</span> <span class="op">-</span><span class="dv">1</span>, <span class="dt">variables =</span> vars, <span class="dt">turnvars =</span> turnvars)
+levels       &lt;-<span class="st"> </span><span class="kw"><a href="reference/relsa_levels.html">relsa_levels</a></span>(pre, <span class="dt">bsl =</span> bsl, <span class="dt">drops =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"bw"</span>, <span class="st">"score"</span>), <span class="dt">turns =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"hr"</span>, <span class="st">"mgs"</span>, <span class="st">"temp"</span>),
+                             <span class="dt">k =</span> <span class="dv">4</span>, <span class="dt">customCol =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"red"</span>, <span class="st">"green"</span>, <span class="st">"blue"</span>, <span class="st">"magenta"</span>))
+
+<span class="co"># Test model --------------------------------------------------------------</span>
+animal       &lt;-<span class="st"> </span><span class="dv">1</span>
+RELSA        &lt;-<span class="st"> </span><span class="kw"><a href="reference/relsa.html">relsa</a></span>(<span class="dt">set =</span> pre, bsl, <span class="dt">a =</span> animal, 
+                      <span class="dt">drop=</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"bw"</span>, <span class="st">"score"</span>, <span class="st">"mgs30"</span>, <span class="st">"mgs180"</span>), <span class="dt">turnvars =</span> turnvars)
+<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(RELSA<span class="op">$</span>relsa<span class="op">$</span>rms)</code></pre></div>
+<pre><code>##    rms
+## 1 0.00
+## 2 0.61
+## 3 0.39
+## 4 0.36
+## 5 0.44
+## 6 0.32</code></pre>
 </div>
 </div>
   </div>
@@ -129,17 +159,23 @@ library(RELSA)</code></pre>
 <div class="developers">
 <h2>Developers</h2>
 <ul class="list-unstyled">
-<li>Steven R Talbot <br><small class="roles"> Maintainer, author </small> <a href="https://orcid.org/0000-0002-9062-4065" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID" height="16"></a> </li>
+<li>Steven Talbot <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-9062-4065" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID" height="16"></a> </li>
 </ul>
 </div>
 
-      </div>
+      <div class="dev-status">
+<h2>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://travis-ci.org/r-lib/usethis"><img src="https://travis-ci.org/mytalbot/RELSA.svg?branch=master" alt="Travis build status"></a></li>
+</ul>
+</div>
+</div>
 
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Steven R Talbot.</p>
+  <p>Developed by Steven Talbot.</p>
 </div>
 
 <div class="pkgdown">
