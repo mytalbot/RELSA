@@ -2,7 +2,7 @@
 output: github_document
 ---
 
-# RELSA <img src="man/figures/logo.png" align="right" width="120" />
+# RELSA <img src="https://talbotsr.com/RELSA/logo.png" align="right" width="120" />
 
 <!-- badges: start -->
 [![Travis build status](https://travis-ci.org/mytalbot/RELSA.svg?branch=master)](https://travis-ci.org/r-lib/usethis)
