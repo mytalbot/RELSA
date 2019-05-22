@@ -41,7 +41,7 @@ levels       <- relsa_levels(pre, bsl = bsl, drops = c("bw", "score"), turns = c
 # Test model --------------------------------------------------------------
 animal       <- 1
 RELSA        <- relsa(set = pre, bsl, a = animal, 
-                      drop=c("bw", "score", "mgs30", "mgs180"), turnvars = turnvars)
+                      drop= c("bw", "score", "mgs30", "mgs180"), turnvars = turnvars)
 head(RELSA$relsa$rms)
 
 ```
