@@ -4,7 +4,7 @@
 \name{postop}
 \alias{postop}
 \title{Transmitter operated mice}
-\format{A data frame with post-op data.}
+\format{A 840 x 16 data frame with post-op data.}
 \usage{
 data(postop)
 }

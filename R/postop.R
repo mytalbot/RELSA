@@ -8,7 +8,7 @@
 #'
 #' @usage data(postop)
 #'
-#' @format A data frame with post-op data.
+#' @format A 840 x 16 data frame with post-op data.
 #'
 #' @keywords datasets
 #'
