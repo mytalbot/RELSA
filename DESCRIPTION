@@ -1,7 +1,7 @@
 Package: RELSA
 Type: Package
 Title: Relative Severity Assessment Score for Laboratory Animals
-Version: 0.0.1
+Version: 0.0.1.9000
 Year: 2019
 Authors@R: 
     person(given = "Steven",
@@ -23,6 +23,7 @@ LazyData: true
 RoxygenNote: 6.1.1
 URL: https://github.com/mytalbot/RELSA 
 BugReports: https://github.com/mytalbot/RELSA/issues
+Depends: R (>= 2.10)
 Suggests: 
     knitr,
     rmarkdown

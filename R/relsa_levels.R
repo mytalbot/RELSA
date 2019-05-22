@@ -21,8 +21,8 @@
 #' @import dichromat
 #' @import graphics
 #' @importFrom grDevices colorRampPalette
-#' @importFrom grDevices tiff
-#' @importFrom stats kmeans
+#' @importFrom grDevices tiff dev.off
+#' @importFrom stats kmeans complete.cases var
 #' @export
 #'
 
