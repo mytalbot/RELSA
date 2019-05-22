@@ -118,47 +118,26 @@ relsa_plot (set=NULL, RELSA, levels=NULL, animal=1, plotvar=NULL, plotRELSA=TRUE
 
 
 ## Working example
-Provide a path and textfile with the reference and testset.  
-Example data can be downloaded here: Download example data.
+Uses the internal `postop` dataset for analysis.
 
 ```
 library(RELSA)
 
-############ Preparing the reference set ################
-### Load some data and subsets
-library(RELSA)
-
+# Build model -------------------------------------------------------------
 raw          <- postop
-
-### Preprocessing (normalization)
-vars         <- c("bwc", "bur2h","burON","hr","hrv", "temp", "act", "mgs")
+vars         <- c("bwc", "bur2h", "burON", "hr", "hrv", "temp", "act", "mgs")
 turnvars     <- c("hr", "mgs", "temp" )
+pre          <- relsa_norm(cbind(raw[,1:4], raw[,vars]), 
+                           normthese = c("bur2h", "burON", "hr", "hrv", "temp", "act", "mgs"), ontime = 1)
+bsl          <- relsa_baselines(dataset = pre, bslday = -1, variables = vars, turnvars = turnvars)
+levels       <- relsa_levels(pre, bsl = bsl, drops = c("bw", "score"), turns = c("hr", "mgs", "temp"),
+                             k = 4, customCol = c("red", "green", "blue", "magenta"))
 
-org          <- cbind(raw[,1:4], raw[,vars])
-pre          <- relsa_norm(org, normthese=c("bur2h","burON","hr","hrv","temp","act","mgs"), ontime=1)
-
-### Baseline/reference set calculations (with preprocessed data)
-bsl          <- relsa_baselines(dataset=pre, bslday=-1, variables=vars, turnvars=turnvars)
-
-### Determine k-clusters and levels for the reference set
-levels       <- relsa_levels(pre, mypath=NULL, bsl=bsl, filename="Burrowing levels", drops=c("bw","score"), 
-                             turns=c("hr","mgs","temp"), relsaNA=NA, k=4, showScree="no", 
-                             customCol= c("red","green","blue","magenta"), seed=123, myYlim=c(0,1.4),
-                             saveTiff="no")
-
-############ Analyze individual animals (here: from the reference set) #################
-testraw      <- raw
-vars         <- names(testraw[,-c(1:4)])
-pre_test     <- cbind(testraw[,1:4], testraw[,vars])
-testset      <- relsa_norm(pre_test, normthese=c("bur2h","burON","hr","hrv","temp","act","mgs"), ontime=1)
-
+# Test model --------------------------------------------------------------
 animal       <- 1
-RELSA        <- relsa(set=testset, bsl, a=animal, drop=c("bw","score","mgs30","mgs180"), 
-                      turnvars=c("hr","mgs","temp"), relsaNA=NA)
-
-# show raw data + RELSA
-plotset      <- relsa_plot(pre_test, RELSA, levels=levels, animal=animal, plotvar=NULL,
-                           plotRELSA=TRUE, myylim=c(80,120), myYlim=c(0,1.4))
+RELSA        <- relsa(set = pre, bsl, a = animal, 
+                      drop=c("bw", "score", "mgs30", "mgs180"), turnvars = turnvars)
+head(RELSA$relsa$rms)
 ```
 
 ### References

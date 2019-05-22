@@ -4,9 +4,10 @@
 \alias{relsa_levels}
 \title{k+1 levels determination for RELSA reference data}
 \usage{
-relsa_levels(refset, mypath, filename, bsl, drops = NULL, turns = NULL,
-  relsaNA = NA, k = 4, showScree = "no", customCol = NULL,
-  seed = 123, myYlim = c(0, 1.4), saveTiff = "yes")
+relsa_levels(refset, mypath, filename = NULL, bsl = bsl,
+  drops = NULL, turns = NULL, relsaNA = NA, k = 4,
+  showScree = "no", customCol = NULL, seed = 123, myYlim = c(0,
+  1.4), showPlot = "no", saveTiff = "no")
 }
 \arguments{
 \item{refset}{normalized data from a reference set}
@@ -32,6 +33,8 @@ relsa_levels(refset, mypath, filename, bsl, drops = NULL, turns = NULL,
 \item{seed}{random seed, if set to NULL, no seeding for kmeans is used}
 
 \item{myYlim}{limits of the y-axis for the clustering}
+
+\item{showPlot}{shows the ordered data and colored cluster levels}
 
 \item{saveTiff}{yes/no whether to save the output as *.tiff file (if no, mypath is obsolete)}
 }

@@ -9,9 +9,40 @@ Installation
 
 You can install the development version of RELSA by running:
 
-`devtools::install_github("mytalbot/relsa") library(RELSA)`
+    devtools::install_github("mytalbot/relsa")
+    library(RELSA)
 
 Documentation
 -------------
 
 This package is documented using pkgdown, and the resulting website is available [here](https://talbotsr.com/RELSA), where detailed Tutorials can be found covering all of the package functionality. See reference for detailed function documentation.
+
+Example
+-------
+
+``` r
+library(RELSA)
+
+# Build model -------------------------------------------------------------
+raw          <- postop
+vars         <- c("bwc", "bur2h", "burON", "hr", "hrv", "temp", "act", "mgs")
+turnvars     <- c("hr", "mgs", "temp" )
+pre          <- relsa_norm(cbind(raw[,1:4], raw[,vars]), 
+                           normthese = c("bur2h", "burON", "hr", "hrv", "temp", "act", "mgs"), ontime = 1)
+bsl          <- relsa_baselines(dataset = pre, bslday = -1, variables = vars, turnvars = turnvars)
+levels       <- relsa_levels(pre, bsl = bsl, drops = c("bw", "score"), turns = c("hr", "mgs", "temp"),
+                             k = 4, customCol = c("red", "green", "blue", "magenta"))
+
+# Test model --------------------------------------------------------------
+animal       <- 1
+RELSA        <- relsa(set = pre, bsl, a = animal, 
+                      drop=c("bw", "score", "mgs30", "mgs180"), turnvars = turnvars)
+head(RELSA$relsa$rms)
+#>    rms
+#> 1 0.00
+#> 2 0.61
+#> 3 0.39
+#> 4 0.36
+#> 5 0.44
+#> 6 0.32
+```

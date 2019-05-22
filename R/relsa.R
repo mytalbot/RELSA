@@ -1,10 +1,8 @@
-#' Relative Severity Assessment (RELSA) Score
+#' Relative Severity Assessment Score
 #'
 #' The \code{relsa} function calculates a composite relative severity score based on normalized
 #' differences. Further, the values are regularized with a reference set to estimate relative
 #' severity.
-#'
-#' \cr PLEASE NOTE: Changing the reference set will change the relative severity context.
 #'
 #' @param set dataset sample data frame
 #' @param bsl reference or baseline data (must be in RELSA format, see relsa_load)

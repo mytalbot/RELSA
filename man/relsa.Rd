@@ -2,7 +2,7 @@
 % Please edit documentation in R/relsa.R
 \name{relsa}
 \alias{relsa}
-\title{Relative Severity Assessment (RELSA) Score}
+\title{Relative Severity Assessment Score}
 \usage{
 relsa(set, bsl, a = 1, drop = NULL, turnvars = NULL, relsaNA = NA)
 }
@@ -26,9 +26,6 @@ relsa(set, bsl, a = 1, drop = NULL, turnvars = NULL, relsaNA = NA)
 The \code{relsa} function calculates a composite relative severity score based on normalized
 differences. Further, the values are regularized with a reference set to estimate relative
 severity.
-}
-\details{
-\cr PLEASE NOTE: Changing the reference set will change the relative severity context.
 }
 \examples{
 \dontrun{

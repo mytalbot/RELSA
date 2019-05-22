@@ -14,6 +14,7 @@
 #' @param customCol custom color string for the k clusters
 #' @param seed random seed, if set to NULL, no seeding for kmeans is used
 #' @param myYlim limits of the y-axis for the clustering
+#' @param showPlot shows the ordered data and colored cluster levels
 #' @param saveTiff yes/no whether to save the output as *.tiff file (if no, mypath is obsolete)
 #'
 #' @return \code{levels} data.frame with k+1 levels determined by k-means
@@ -26,8 +27,8 @@
 #' @export
 #'
 
-relsa_levels <- function(refset, mypath, filename, bsl, drops=NULL, turns=NULL, relsaNA=NA, k=4,
-                         showScree="no", customCol=NULL, seed=123, myYlim=c(0,1.4), saveTiff="yes"){
+relsa_levels <- function(refset, mypath, filename=NULL, bsl=bsl, drops=NULL, turns=NULL, relsaNA=NA, k=4,
+                         showScree="no", customCol=NULL, seed=123, myYlim=c(0,1.4), showPlot="no", saveTiff="no"){
 
   #####  RELSA score all data
   df <-NULL
@@ -102,6 +103,7 @@ relsa_levels <- function(refset, mypath, filename, bsl, drops=NULL, turns=NULL, 
     tiff(mypath, width = 1100, height = 1100, units = "px", pointsize = 8,res = 400, compression = "lzw")
   }else {}
 
+  if(showPlot=="yes"){
     # plotting the clusters
     plot(b, pch=19, ylab="RELSA score", ylim=myYlim)
     points(b, col=mycol, pch=19)
@@ -109,9 +111,13 @@ relsa_levels <- function(refset, mypath, filename, bsl, drops=NULL, turns=NULL, 
       abline(h=levels[j], lwd=1, lty=2)
     }
 
+  }else{}
+
   if(saveTiff=="yes"){
     dev.off()
   }else{}
+
+
 
   return(levels=levels)
 
