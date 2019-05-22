@@ -1,12 +1,14 @@
 Package: RELSA
 Type: Package
-Title: "Relative Severity Assessment (RELSA)" score for laboratory animals
+Title: Relative Severity Assessment Score for Laboratory Animals
 Version: 0.0.1
 Year: 2019
-Author: c( person(given="Steven", "Talbot", middle="R", email = "talbot.steven@mh-hannover.de", role = c("cre","aut"), 
-    comment = c(ORCID = "0000-0002-9062-4065"))
-Authors@R: c( person(given="Steven", "Talbot", middle="R", "talbot.steven@mh-hannover.de", role = c("cre","aut"), 
-      comment = c(ORCID = "0000-0002-9062-4065")))
+Authors@R: 
+    person(given = "Steven",
+           family = "Talbot",
+           role = c("aut", "cre"),
+           email = "talbot.steven@mh-hannover.de",
+           comment = c(ORCID = "0000-0002-9062-4065"))
 Maintainer: Steven R. Talbot <talbot.steven@mh-hannover.de>
 Description: The RELSA score and RELSA package comprises a set of functions for assessing relative severity in laboratory
    animals. In animal-based research the problem of severity classification is crucial. As animals cannot communicate their 
