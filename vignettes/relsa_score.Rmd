@@ -12,9 +12,7 @@ vignette: >
 
 
 ```{r message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
-
 library(RELSA)
-source("C:/MHH Bleich/Papers/PostOPPaper/Relsa package/Paper_Clustering.R")
 ```
 
 
@@ -22,7 +20,7 @@ source("C:/MHH Bleich/Papers/PostOPPaper/Relsa package/Paper_Clustering.R")
 
 ############ BSL & General ##################
 # load some data and subsets
-raw          <- relsa_load("C:/MHH Bleich/Papers/PostOPPaper/Data/post-op laura.txt", treatment = "Transmitter" )
+raw          <- postop
 
 ### Preprocessing (normalization)
 vars         <- c("bwc", "bur2h","burON","hr","hrv", "temp", "act", "mgs")
