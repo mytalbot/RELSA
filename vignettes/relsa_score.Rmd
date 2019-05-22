@@ -34,9 +34,9 @@ bsl          <- relsa_baselines(dataset=pre, bslday=-1, variables=vars, turnvars
 
 ### Determine k clusters and levels for the reference set
 levels       <- relsa_levels(pre, mypath=NULL, bsl,
-                             filename="Burrowing levels", drops=c("bw","score"), turns=c("hr","mgs","temp"), relsaNA=NA, k=4,
+                             filename=NULL, drops=c("bw","score"), turns=c("hr","mgs","temp"), relsaNA=NA, k=4,
                              showScree="no", customCol= c("red","green","blue","magenta"), seed=123, myYlim=c(0,1.4), 
-                             saveTiff="yes")
+                             saveTiff="no")
 
 ##### Single Tests #########################################
 testraw      <- postop
