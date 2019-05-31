@@ -45,7 +45,7 @@ relsa <- function(set, bsl, a=1, drop=NULL, turnvars=NULL, relsaNA=NA ){
     bsdelta          <- 100 - bsl$maxsev
   }else{
     delta            <- 100 - subdata[-1]
-    delta[,turnvars] <- delta[, turnvars] -1
+    delta[,turnvars] <- delta[, turnvars]* -1
 
     bsdelta          <- 100 - bsl$maxsev         # for the extreme values of baseline vars
     bsdelta[turnvars]<- bsdelta[turnvars]* -1
