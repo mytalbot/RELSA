@@ -6,7 +6,8 @@
 \usage{
 relsa_plot(set = NULL, RELSA, levels = NULL, animal = 1,
   plotvar = NULL, plotRELSA = TRUE, myylim = c(70, 110),
-  myYlim = c(0, 2), mypch = 1, myXlab = "time point")
+  myYlim = c(0, 2), mypch = 1, mycol = "red",
+  myXlab = "time point")
 }
 \arguments{
 \item{set}{dataset sample data frame}
@@ -26,6 +27,8 @@ relsa_plot(set = NULL, RELSA, levels = NULL, animal = 1,
 \item{myYlim}{custom y-axis limits (right axis)}
 
 \item{mypch}{custom dot marker}
+
+\item{mycol}{custom plot color}
 
 \item{myXlab}{custom x-axis label}
 }

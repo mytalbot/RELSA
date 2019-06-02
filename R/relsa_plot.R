@@ -11,6 +11,7 @@
 #' @param myylim custom y-axis limits (left axis)
 #' @param myYlim custom y-axis limits (right axis)
 #' @param mypch custom dot marker
+#' @param mycol custom plot color
 #' @param myXlab custom x-axis label
 #'
 #' @return \code{relsa} data.frame with RELSA scores for each variable, the sum and mean score
@@ -21,19 +22,20 @@
 #'
 
 relsa_plot <- function(set=NULL, RELSA, levels=NULL, animal=1, plotvar=NULL, plotRELSA=TRUE,
-                       myylim=c(70,110),  myYlim=c(0,2), mypch=1, myXlab="time point"){
+                       myylim=c(70,110),  myYlim=c(0,2), mypch=1, mycol="red", myXlab="time point"){
 
   plotset    <- set[set$id==unique(set$id)[animal],]
 
   relsatype  <- as.numeric(unlist(RELSA$relsa$rms))
 
   if(length(plotvar)!=0){
-    plot(plotset$day, plotset[,which(names(plotset)==plotvar)], pch=mypch, type="b", ylab=plotvar, xlab=myXlab, ylim=myylim)
+    plot(plotset$day, plotset[,which(names(plotset)==plotvar)], pch=mypch, cex.axis=1.2,
+         cex.lab=1.2, type="b", ylab=plotvar, xlab=myXlab, ylim=myylim)
 
     if(plotRELSA==TRUE){
       par(new = TRUE)
       plot(plotset$day,
-           relsatype,   type = "b", lwd=2, xaxt = "n", yaxt = "n", ylab = "", xlab = "", col="red", ylim=myYlim )
+           relsatype,   type = "b", lwd=2, xaxt = "n", yaxt = "n", ylab = "", xlab = "", col=mycol, ylim=myYlim, pch=mypch )
       axis(side = 4)
       mtext("RELSA Score", side = 4, line = 3)
 
@@ -49,7 +51,8 @@ relsa_plot <- function(set=NULL, RELSA, levels=NULL, animal=1, plotvar=NULL, plo
 
   }else{
     plot(RELSA$relsa$day ,
-         relsatype,   type = "b", lwd=2, ylab = "RELSA score", xlab=myXlab, col="red", ylim=myYlim, pch=mypch )
+         relsatype, type = "b", lwd=2, ylab = "RELSA score", cex.axis=1.2, cex.lab=1.2,
+         xlab=myXlab, col=mycol, ylim=myYlim, pch=mypch )
 
     # write level lines to plot
     if(length(levels)==0){
