@@ -13,6 +13,7 @@ vignette: >
 
 ```{r message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
 library(RELSA)
+library(knitr)
 ```
 
 
@@ -100,7 +101,7 @@ days         <- subdata$day
 ```
 
 ```{r echo=FALSE}
-head(subdata)
+kable(head(subdata))
 ```
 
 ### Calculation of differences
@@ -150,7 +151,7 @@ An example for a cleaned difference matrix (D) is shown in the following example
   ### set all negative values to NA - otherwise zero would allow usage in the mean!
   delta[delta<0]     <- 0
   delta              <- round(delta,2)
-  head(delta)
+  kable(head(delta))
   
   # get the order of names in delta for baseline relsa score 2
   namen              <- names(delta)
@@ -173,7 +174,7 @@ Following the example above, the resulting wfs are represented in the following 
     for(r in 1:dim(delta)[1]){
       wfactor          <- as.data.frame(round( rbind(wfactor, delta[r,] / bsdelta[namen]), 2))
     }
- head(wfactor)
+ kable(head(wfactor))
   
 ```
 
@@ -211,7 +212,7 @@ rms                  <- as.data.frame(rms)
     
 final                <- data.frame(day=days, RELSA=round(rms,2))
 colnames(final)      <- c("day", "RELSA")
-head(final)
+kable(head(final))
 ```
 
 ### Use-case: Comparison of sham vs transmitter implanted mice
