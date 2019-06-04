@@ -232,7 +232,7 @@ relsa (set, bsl, a=1, drop=NULL, turnvars=NULL, relsaNA=0 )</a></code></pre>
 <h3 class="hasAnchor">
 <a href="#relsa_plot" class="anchor"></a>relsa_plot</h3>
 <pre><code><a href="../reference/relsa_plot.html"># This function can be used to plot the RELSA score.
-relsa_plot (set=NULL, RELSA, levels=NULL, animal=1, plotvar=NULL, plotRELSA=TRUE, myylim=c(70,110), myYlim=c(0,2), mypch=1)</a></code></pre>
+relsa_plot (set=NULL, RELSA, levels=NULL, animal=1, plotvar=NULL, plotRELSA=TRUE, myylim=c(70,110), myYlim=c(0,2), mypch=1, mycol="red")</a></code></pre>
 <p><code>set</code> contains the loaded data frame obtained by <code>relsa_load</code> and <code>RELSA</code> the output from the <code>relsa</code> function. The <code>levels</code> argument accepts the level output from the <code>relsa_levels</code> function. The specific animal to be plotted is defined with the unique animal number in <code>animal</code>. Each variable can be plotted individually by controlling the variable name in the <code>plotvar</code> field (e.g. plotvar=“bwc”). With the <code>plotRELSA</code> argument the RELSA score is plotted in addition to the variable. <code>myylim</code> controls the range of the first Y-axis on the left side of the plot and <code>myYlim</code> for the RELSA score on the left side if plotvar is not NULL. The pch argument controls the dot type (default is 1).</p>
 </div>
 </div>
@@ -246,10 +246,10 @@ relsa_plot (set=NULL, RELSA, levels=NULL, animal=1, plotvar=NULL, plotRELSA=TRUE
 raw          &lt;- postop
 vars         &lt;- c("bwc", "bur2h", "burON", "hr", "hrv", "temp", "act", "mgs")
 turnvars     &lt;- c("hr", "mgs", "temp" )
-pre          &lt;- relsa_norm(cbind(raw[,1:4], raw[,vars]), 
+pre          &lt;- relsa_norm(raw, 
                            normthese = c("bur2h", "burON", "hr", "hrv", "temp", "act", "mgs"), ontime = 1)
 bsl          &lt;- relsa_baselines(dataset = pre, bslday = -1, variables = vars, turnvars = turnvars)
-levels       &lt;- relsa_levels(pre, bsl = bsl, drops = c("bw", "score"), turns = c("hr", "mgs", "temp"),
+levels       &lt;- relsa_levels(pre, bsl = bsl, drops = c("bw", "mgs30", "mgs180", "score"), turns = c("hr", "mgs", "temp"),
                              k = 4, customCol = c("red", "green", "blue", "magenta"))
 
 # Test model --------------------------------------------------------------

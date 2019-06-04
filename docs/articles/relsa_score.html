@@ -116,20 +116,115 @@ relsa (set, bsl, a=1, drop=NULL, turnvars=NULL)</a></code></pre>
 <h3 class="hasAnchor">
 <a href="#subsetting-of-the-normalized-test-data" class="anchor"></a>Subsetting of the normalized test data</h3>
 <p>The resulting table of normalized variables looks like the following example for a transmitter-operated mouse with 12 measured variables. Not all of them are needed in the RELSA calculation (bw, bwc and clinical score are strongly correlated so that just bwc is used; further, mouse grimace scale 30 min and 180 lack baseline values and show missing data on the following days, so that they can be skipped as well).</p>
-<pre><code>##   day   bw    bwc score    mgs mgs30 mgs180  bur2h  burON     hr    hrv
-## 1  -1 18.4 100.00     0 100.00    NA     NA 100.00 100.00 100.00 100.00
-## 2   0 16.1  87.50     2 112.50  0.86   0.36  26.46  62.12 145.65  16.50
-## 3   1 16.7  90.76     2 193.75    NA     NA  90.56 135.72 128.96  38.96
-## 4   2 17.1  92.93     2 165.62    NA     NA  74.97 137.62 118.63  54.44
-## 5   3 17.3  94.02     1     NA    NA     NA     NA     NA 106.30  56.89
-## 6   4 17.3  94.02     1  65.62    NA     NA  97.36  96.13 115.87  57.39
-##     temp    act
-## 1 100.00 100.00
-## 2  98.83  11.79
-## 3 102.42  38.25
-## 4 101.44  33.02
-## 5 100.27  26.88
-## 6 101.29  36.37</code></pre>
+<table class="table">
+<thead><tr class="header">
+<th align="right">day</th>
+<th align="right">bw</th>
+<th align="right">bwc</th>
+<th align="right">score</th>
+<th align="right">mgs</th>
+<th align="right">mgs30</th>
+<th align="right">mgs180</th>
+<th align="right">bur2h</th>
+<th align="right">burON</th>
+<th align="right">hr</th>
+<th align="right">hrv</th>
+<th align="right">temp</th>
+<th align="right">act</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="right">-1</td>
+<td align="right">18.4</td>
+<td align="right">100.00</td>
+<td align="right">0</td>
+<td align="right">100.00</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">100.00</td>
+<td align="right">100.00</td>
+<td align="right">100.00</td>
+<td align="right">100.00</td>
+<td align="right">100.00</td>
+<td align="right">100.00</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="right">16.1</td>
+<td align="right">87.50</td>
+<td align="right">2</td>
+<td align="right">112.50</td>
+<td align="right">0.86</td>
+<td align="right">0.36</td>
+<td align="right">26.46</td>
+<td align="right">62.12</td>
+<td align="right">145.65</td>
+<td align="right">16.50</td>
+<td align="right">98.83</td>
+<td align="right">11.79</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">16.7</td>
+<td align="right">90.76</td>
+<td align="right">2</td>
+<td align="right">193.75</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">90.56</td>
+<td align="right">135.72</td>
+<td align="right">128.96</td>
+<td align="right">38.96</td>
+<td align="right">102.42</td>
+<td align="right">38.25</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">17.1</td>
+<td align="right">92.93</td>
+<td align="right">2</td>
+<td align="right">165.62</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">74.97</td>
+<td align="right">137.62</td>
+<td align="right">118.63</td>
+<td align="right">54.44</td>
+<td align="right">101.44</td>
+<td align="right">33.02</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">17.3</td>
+<td align="right">94.02</td>
+<td align="right">1</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">106.30</td>
+<td align="right">56.89</td>
+<td align="right">100.27</td>
+<td align="right">26.88</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">17.3</td>
+<td align="right">94.02</td>
+<td align="right">1</td>
+<td align="right">65.62</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">97.36</td>
+<td align="right">96.13</td>
+<td align="right">115.87</td>
+<td align="right">57.39</td>
+<td align="right">101.29</td>
+<td align="right">36.37</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="calculation-of-differences" class="section level3">
 <h3 class="hasAnchor">
@@ -145,13 +240,80 @@ delta[,turnvars] = delta[, turnvars]* -1</p></li>
 <p>With [-1] the daily baseline values at day=-1 are not recognized in the calculation.</p>
 <p>Also, after this step all differences &lt;0 are set to 0 so that there are no negative values. A negative value means full recovery. Negative values play no role in the RELSA calculation so that they are eliminated. Zeros also point to non-missing but recovered data. This difference is important since missing values will not contribute to mathematical calculations such as the mean. This would skew the results and give weight to variables that are not present in the data.</p>
 <p>An example for a cleaned difference matrix (D) is shown in the following example (in which the following variables were dropped: c(“bw”,“score”,“mgs30”,“mgs180” ) and turned: c(“hr”, “mgs”,“temp” ). Missing data are indicated as NAs.</p>
-<pre><code>##     bwc   mgs bur2h burON    hr   hrv temp   act
-## 1  0.00  0.00  0.00  0.00  0.00  0.00 0.00  0.00
-## 2 12.50 12.50 73.54 37.88 45.65 83.50 0.00 88.21
-## 3  9.24 93.75  9.44  0.00 28.96 61.04 2.42 61.75
-## 4  7.07 65.62 25.03  0.00 18.63 45.56 1.44 66.98
-## 5  5.98    NA    NA    NA  6.30 43.11 0.27 73.12
-## 6  5.98  0.00  2.64  3.87 15.87 42.61 1.29 63.63</code></pre>
+<table class="table">
+<thead><tr class="header">
+<th align="right">bwc</th>
+<th align="right">mgs</th>
+<th align="right">bur2h</th>
+<th align="right">burON</th>
+<th align="right">hr</th>
+<th align="right">hrv</th>
+<th align="right">temp</th>
+<th align="right">act</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td align="right">12.50</td>
+<td align="right">12.50</td>
+<td align="right">73.54</td>
+<td align="right">37.88</td>
+<td align="right">45.65</td>
+<td align="right">83.50</td>
+<td align="right">0.00</td>
+<td align="right">88.21</td>
+</tr>
+<tr class="odd">
+<td align="right">9.24</td>
+<td align="right">93.75</td>
+<td align="right">9.44</td>
+<td align="right">0.00</td>
+<td align="right">28.96</td>
+<td align="right">61.04</td>
+<td align="right">2.42</td>
+<td align="right">61.75</td>
+</tr>
+<tr class="even">
+<td align="right">7.07</td>
+<td align="right">65.62</td>
+<td align="right">25.03</td>
+<td align="right">0.00</td>
+<td align="right">18.63</td>
+<td align="right">45.56</td>
+<td align="right">1.44</td>
+<td align="right">66.98</td>
+</tr>
+<tr class="odd">
+<td align="right">5.98</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">6.30</td>
+<td align="right">43.11</td>
+<td align="right">0.27</td>
+<td align="right">73.12</td>
+</tr>
+<tr class="even">
+<td align="right">5.98</td>
+<td align="right">0.00</td>
+<td align="right">2.64</td>
+<td align="right">3.87</td>
+<td align="right">15.87</td>
+<td align="right">42.61</td>
+<td align="right">1.29</td>
+<td align="right">63.63</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="calculation-of-the-relsa-score" class="section level3">
 <h3 class="hasAnchor">
@@ -159,22 +321,114 @@ delta[,turnvars] = delta[, turnvars]* -1</p></li>
 <p>The baseline model is required for context. The values in the baseline model show the extrema for each variable in the current model. As such, they are the maximum (or minimum) reached values coding for some virtually known or prospective severity. Every test animal with its unique values and variables will now be compared to these baseline values arithmetrically to yield a weight factor (wf):</p>
 <p><span class="math display">\[wf=\frac{D}{BSLextrema}\]</span> For example, if the lowest reached body weight change (bwc) value in an animal of the training data is, e.g. 15 % and the actual loss in a test animal is 11 % , wf results to wf=11/15 = 0.73. In other words, the actual mouse reached 73 % of the maximum bwc escalation of the baseline data. Since context is relevant here, this also means that the animal also experiences 73 % of the maximum reached severity of the baseline model. This is repeated for each day and available variable.</p>
 <p>Following the example above, the resulting wfs are represented in the following matrix:</p>
-<pre><code>##    bwc  mgs bur2h burON   hr  hrv temp  act
-## 1 0.00 0.00  0.00  0.00 0.00 0.00 0.00 0.00
-## 2 0.81 0.04  0.74  0.38 0.85 0.91 0.00 0.92
-## 3 0.60 0.31  0.09  0.00 0.54 0.66 0.55 0.65
-## 4 0.46 0.21  0.25  0.00 0.35 0.50 0.33 0.70
-## 5 0.39   NA    NA    NA 0.12 0.47 0.06 0.76
-## 6 0.39 0.00  0.03  0.04 0.30 0.46 0.29 0.67</code></pre>
+<table class="table">
+<thead><tr class="header">
+<th align="right">bwc</th>
+<th align="right">mgs</th>
+<th align="right">bur2h</th>
+<th align="right">burON</th>
+<th align="right">hr</th>
+<th align="right">hrv</th>
+<th align="right">temp</th>
+<th align="right">act</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td align="right">0.81</td>
+<td align="right">0.04</td>
+<td align="right">0.74</td>
+<td align="right">0.38</td>
+<td align="right">0.85</td>
+<td align="right">0.91</td>
+<td align="right">0.00</td>
+<td align="right">0.92</td>
+</tr>
+<tr class="odd">
+<td align="right">0.60</td>
+<td align="right">0.31</td>
+<td align="right">0.09</td>
+<td align="right">0.00</td>
+<td align="right">0.54</td>
+<td align="right">0.66</td>
+<td align="right">0.55</td>
+<td align="right">0.65</td>
+</tr>
+<tr class="even">
+<td align="right">0.46</td>
+<td align="right">0.21</td>
+<td align="right">0.25</td>
+<td align="right">0.00</td>
+<td align="right">0.35</td>
+<td align="right">0.50</td>
+<td align="right">0.33</td>
+<td align="right">0.70</td>
+</tr>
+<tr class="odd">
+<td align="right">0.39</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">0.12</td>
+<td align="right">0.47</td>
+<td align="right">0.06</td>
+<td align="right">0.76</td>
+</tr>
+<tr class="even">
+<td align="right">0.39</td>
+<td align="right">0.00</td>
+<td align="right">0.03</td>
+<td align="right">0.04</td>
+<td align="right">0.30</td>
+<td align="right">0.46</td>
+<td align="right">0.29</td>
+<td align="right">0.67</td>
+</tr>
+</tbody>
+</table>
 <p>The weights are showing the <em>magnitude of variable escalation</em>. They generalize the mean differences in each animal that are further regularized by the extrema of the reference model. Calculating the mean for these values will not reflect the actual situation in terms of severity. Because we are looking for extrema that indicate potential severity, magnitude matters. In statistics this is traditionally solved by squaring numbers. Therefore, we deem the root mean square of the combined weight factors as a reasonable choice for the final RELSA score calculation - giving larger deltas (weights) more weight.</p>
 <p><span class="math display">\[RELSA=\sqrt{\frac{1}{n}\sum_{i=1}^n (wf_i)^2}\]</span></p>
-<pre><code>##   day RELSA
-## 1  -1  0.00
-## 2   0  0.68
-## 3   1  0.49
-## 4   2  0.40
-## 5   3  0.44
-## 6   4  0.35</code></pre>
+<table class="table">
+<thead><tr class="header">
+<th align="right">day</th>
+<th align="right">RELSA</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="right">-1</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="right">0.68</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">0.49</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">0.40</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">0.44</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">0.35</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="use-case-comparison-of-sham-vs-transmitter-implanted-mice" class="section level3">
 <h3 class="hasAnchor">
