@@ -1,0 +1,10 @@
+citHeader("To cite RELSA in publications use:")
+
+citEntry(
+  entry    = "Misc",
+  title    = "Relative Severity Assessment Score for Laboratory Animals",
+  author   = "Steven R. Talbot",
+  year     = "2019",
+  url      = "https://talbotsr.com/endpointR/index.html",
+  textVersion = "Steven R Talbot. RELSA: Relative Severity Assessment Score for Laboratory Animals. 2019."
+)
