@@ -60,6 +60,3 @@ head(RELSA$relsa$rms)
 
 
 
-
-
-
