@@ -5,6 +5,9 @@ RELSA <img src="man/figures/logo.png" align="right" width="120" />
 <!-- badges: start -->
 [![Travis build status](https://travis-ci.org/mytalbot/RELSA.svg?branch=master)](https://travis-ci.org/r-lib/usethis) <!-- badges: end -->
 
+Relative Severity Score (RELSA)
+-------------------------------
+
 The RELSA package contains a set of functions for **assessing relative severity in laboratory animals**. In animal-based research the problem of severity classification is crucial. As animals cannot communicate their state of well-being, scientists need reliable tools for monitoring severity as closely as possible. It has been shown that a diversity of behavioural tests (and others) may serve this purpose. However, the main issue with these approaches is that they are rather specific and difficult to transfer. A comprehensive and easy to use toolbox for the assessment and comparison of different variables and animal models is missing. RELSA offers a first glimpse into this matter by combining any set of experimental outcome variables into a single composite score.
 
 Installation
