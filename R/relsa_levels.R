@@ -60,7 +60,7 @@ relsa_levels <- function(refset, mypath, filename=NULL, bsl=bsl, drops=NULL, tur
     cl  <- kmeans(b,k)
   }else{
     set.seed(seed)
-    cl  <- kmeans(b,k)
+    cl  <- kmeans(b,k, iter.max =50)
   }
 
 
@@ -116,8 +116,6 @@ relsa_levels <- function(refset, mypath, filename=NULL, bsl=bsl, drops=NULL, tur
   if(saveTiff=="yes"){
     dev.off()
   }else{}
-
-
 
   return(levels=levels)
 
