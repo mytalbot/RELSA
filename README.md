@@ -1,30 +1,41 @@
 
-RELSA <img src="man/figures/logo.png" align="right" width="120" />
-==================================================================
+# RELSA <img src="man/figures/logo.png" align="right" width="120" />
 
 <!-- badges: start -->
-[![Travis build status](https://travis-ci.org/mytalbot/RELSA.svg?branch=master)](https://travis-ci.org/r-lib/usethis) <!-- badges: end -->
 
-Relative Severity Assessment Score (RELSA)
-------------------------------------------
+[![Travis build
+status](https://travis-ci.org/mytalbot/RELSA.svg?branch=master)](https://travis-ci.org/r-lib/usethis)
+<!-- badges: end -->
 
-The RELSA package contains a set of functions for **assessing relative severity in laboratory animals**. In animal-based research the problem of severity classification is crucial. As animals cannot communicate their state of well-being, scientists need reliable tools for monitoring severity as closely as possible. It has been shown that a diversity of behavioural tests (and others) may serve this purpose. However, the main issue with these approaches is that they are rather specific and difficult to transfer. A comprehensive and easy to use toolbox for the assessment and comparison of different variables and animal models is missing. RELSA offers a first glimpse into this matter by combining any set of experimental outcome variables into a single composite score.
+## Relative Severity Assessment Score (RELSA)
 
-Installation
-------------
+The RELSA package contains a set of functions for **assessing relative
+severity in laboratory animals**. In animal-based research the problem
+of severity classification is crucial. As animals cannot communicate
+their state of well-being, scientists need reliable tools for monitoring
+severity as closely as possible. It has been shown that a diversity of
+behavioural tests (and others) may serve this purpose. However, the main
+issue with these approaches is that they are rather specific and
+difficult to transfer. A comprehensive and easy to use toolbox for the
+assessment and comparison of different variables and animal models is
+missing. RELSA offers a first glimpse into this matter by combining any
+set of experimental outcome variables into a single composite score.
+
+## Installation
 
 You can install the development version of RELSA by running:
 
     devtools::install_github("mytalbot/relsa")
     library(RELSA)
 
-Documentation
--------------
+## Documentation
 
-This package is documented using pkgdown, and the resulting website is available [here](https://talbotsr.com/RELSA), where detailed Tutorials can be found covering all of the package functionality. See reference for detailed function documentation.
+This package is documented using pkgdown, and the resulting website is
+available [here](https://talbotsr.com/RELSA), where detailed Tutorials
+can be found covering all of the package functionality. See reference
+for detailed function documentation.
 
-Example
--------
+## Example
 
 ``` r
 library(RELSA)
@@ -46,7 +57,7 @@ RELSA        <- relsa(set = pre, bsl, a = animal,
 head(RELSA$relsa$rms)
 #>    rms
 #> 1 0.00
-#> 2 0.68
+#> 2 0.69
 #> 3 0.49
 #> 4 0.40
 #> 5 0.44

@@ -45,10 +45,10 @@ relsa <- function(set, bsl, a=1, drop=NULL, turnvars=NULL, relsaNA=NA ){
     bsdelta          <- 100 - bsl$maxsev
   }else{
     delta            <- 100 - subdata[-1]
-    delta[,turnvars] <- delta[, turnvars]* -1
+    delta[,turnvars] <- abs(delta[, turnvars]) #* -1
 
-    bsdelta          <- 100 - bsl$maxsev         # for the extreme values of baseline vars
-    bsdelta[turnvars]<- bsdelta[turnvars]* -1
+    bsdelta          <- abs(100 - bsl$maxsev)     # for the extreme values of baseline vars
+    bsdelta[turnvars]<- abs(bsdelta[turnvars])    #* -1
   }
 
   ### set all negative values to NA - otherwise zero would allow usage in the mean!
@@ -100,7 +100,9 @@ relsa <- function(set, bsl, a=1, drop=NULL, turnvars=NULL, relsaNA=NA ){
     # RMS RELSA
     rms     <- c()
     for(l in 1:dim(wfactor)[1]){
-      RMS                <- sqrt( sum( wfactor[l, ]^2 ,na.rm=TRUE )/ (length(wfactor[l, ]) - sum(is.na(wfactor[l, ])))  )
+      RMS                <- sqrt( sum( wfactor[l, ]^2 , na.rm=TRUE )/ (length(wfactor[l, ]) - sum(is.na(wfactor[l, ])))  )
+
+     # RMS                <- sqrt( sum( wfactor[l, ]^2 , na.rm=TRUE ) * ((length(wfactor[l, ]) - sum(is.na(wfactor[l, ])))/length(wfactor[l, ]))  )
      # RMS                <- sum( wfactor[l, ] ,na.rm=TRUE )/ (length(wfactor[l, ]) - sum(is.na(wfactor[l, ])))
      # RMS                <- sqrt( sum( wfactor[l, ]^2 ,na.rm=TRUE )) # old
       if( sum(is.na(wfactor[l, ]))==length(names(wfactor)) ){ RMS<-NA} else {}

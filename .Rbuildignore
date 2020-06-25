@@ -5,3 +5,4 @@
 ^\index\.md$
 ^\index\.Rmd$
 ^docs$
+^raw_data$

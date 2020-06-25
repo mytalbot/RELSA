@@ -4,10 +4,22 @@
 \alias{relsa_levels}
 \title{k+1 levels determination for RELSA reference data}
 \usage{
-relsa_levels(refset, mypath, filename = NULL, bsl = bsl,
-  drops = NULL, turns = NULL, relsaNA = NA, k = 4,
-  showScree = "no", customCol = NULL, seed = 123, myYlim = c(0,
-  1.4), showPlot = "no", saveTiff = "no")
+relsa_levels(
+  refset,
+  mypath,
+  filename = NULL,
+  bsl = bsl,
+  drops = NULL,
+  turns = NULL,
+  relsaNA = NA,
+  k = 4,
+  showScree = "no",
+  customCol = NULL,
+  seed = 123,
+  myYlim = c(0, 1.4),
+  showPlot = "no",
+  saveTiff = "no"
+)
 }
 \arguments{
 \item{refset}{normalized data from a reference set}

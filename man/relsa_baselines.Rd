@@ -4,8 +4,7 @@
 \alias{relsa_baselines}
 \title{Baseline calculation}
 \usage{
-relsa_baselines(dataset = NULL, bslday = -1, variables = NULL,
-  turnvars = NULL)
+relsa_baselines(dataset = NULL, bslday = -1, variables = NULL, turnvars = NULL)
 }
 \arguments{
 \item{dataset}{sample data frame}

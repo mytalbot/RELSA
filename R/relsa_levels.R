@@ -60,7 +60,7 @@ relsa_levels <- function(refset, mypath, filename=NULL, bsl=bsl, drops=NULL, tur
     cl  <- kmeans(b,k)
   }else{
     set.seed(seed)
-    cl  <- kmeans(b,k, iter.max =50)
+    cl  <- kmeans(b,k, iter.max =100)
   }
 
 

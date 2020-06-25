@@ -34,15 +34,17 @@ relsa_baselines <- function(dataset=NULL, bslday=-1, variables=NULL, turnvars=NU
     }else{}
 
     ############################################################################################
+    # max delta
+    maxdelta            <- abs(100 - maxsev)
+
+    ############################################################################################
     # Model characteristics
     ristics           <- data.frame(n          = length(unique(dataset$id)),
                                     treatments = length(unique(dataset$treatment)),
                                     conditions = length(unique(dataset$condition)),
                                     variables  = dim(dataset[, variables])[2])
 
-
-
-  return(list(baseline=baseline, maxsev=maxsev, ristics=ristics) )
+  return(list(baseline=baseline, maxsev=maxsev, maxdelta=maxdelta, ristics=ristics) )
 
   }
 }

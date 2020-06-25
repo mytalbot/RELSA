@@ -4,10 +4,19 @@
 \alias{relsa_plot}
 \title{Plot RELSA score and variables together}
 \usage{
-relsa_plot(set = NULL, RELSA, levels = NULL, animal = 1,
-  plotvar = NULL, plotRELSA = TRUE, myylim = c(70, 110),
-  myYlim = c(0, 2), mypch = 1, mycol = "red",
-  myXlab = "time point")
+relsa_plot(
+  set = NULL,
+  RELSA,
+  levels = NULL,
+  animal = 1,
+  plotvar = NULL,
+  plotRELSA = TRUE,
+  myylim = c(70, 110),
+  myYlim = c(0, 2),
+  mypch = 1,
+  mycol = "red",
+  myXlab = "time point"
+)
 }
 \arguments{
 \item{set}{dataset sample data frame}
