@@ -232,7 +232,7 @@ Further, cluster levels show that the sham-operated animal recovers faster. Here
 
 
 
-```{r echo=FALSE}
+```{r echo=FALSE, fig.height=5, fig.width=7}
 plot( c(-1:28), relsascore,  type="b", pch=19, col="red", xlim=c(-1,28), ylim=c(0,1.4), xlab="day", ylab="RELSA score" )
 lines(c(-1:28), relsascore2, type="b", pch=19 )
 

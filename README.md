@@ -25,15 +25,24 @@ set of experimental outcome variables into a single composite score.
 
 You can install the development version of RELSA by running:
 
-    devtools::install_github("mytalbot/relsa")
+    devtools::install_github("mytalbot/relsa", build_vignettes = TRUE)
     library(RELSA)
 
 ## Documentation
 
 This package is documented using pkgdown, and the resulting website is
-available [here](https://talbotsr.com/RELSA), where detailed Tutorials
-can be found covering all of the package functionality. See reference
-for detailed function documentation.
+available [here](https://talbotsr.com/RELSA), where detailed tutorials
+can be found covering aspects of package functionality. See reference
+section for detailed function documentation.
+
+## Data availability
+
+Raw data with labelled subgroups (treatment/condition columns) can be
+found in the GitHub repository folder “raw\_data”. Data are stored in
+four \*.txt files. [Here is the direct
+link](https://github.com/mytalbot/RELSA/tree/master/raw_data). The data
+in the file “tm\_post-op.txt” is also internalized in the RELSA package
+and can be called with: `RELSA::postop`.
 
 ## Example
 
@@ -41,7 +50,7 @@ for detailed function documentation.
 library(RELSA)
 
 # Build model -------------------------------------------------------------
-raw          <- postop
+raw          <- RELSA::postop
 vars         <- c("bwc", "bur2h", "burON", "hr", "hrv", "temp", "act", "mgs")
 turnvars     <- c("hr", "mgs", "temp" )
 pre          <- relsa_norm(cbind(raw[,1:4], raw[,vars]), 
