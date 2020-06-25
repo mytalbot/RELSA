@@ -1,10 +1,16 @@
 citHeader("To cite RELSA in publications use:")
 
 citEntry(
-  entry    = "Misc",
-  title    = "Relative Severity Assessment Score for Laboratory Animals",
-  author   = "Steven R. Talbot",
-  year     = "2019",
-  url      = "https://talbotsr.com/endpointR/index.html",
-  textVersion = "Steven R Talbot. RELSA: Relative Severity Assessment Score for Laboratory Animals. 2019."
+  entry    = "Article",
+  title    = "One score to rule them all: severity assessment in laboratory mice",
+  author   = "Steven Roger Talbot, Birgitta Struve, Laura Wassermann, Miriam Heider, Nora Weegh, Tilo Knape, Martine Hofmann,
+  Andreas von Knethen, Paulin Jirkof, Lydia Keubler, Andre Bleich, Christine Haeger",
+  journal  = "bioRxiv",
+  year     = "2020",
+  url      = "https://www.biorxiv.org/content/early/2020/06/24/2020.06.23.166801",
+  textVersion = paste("One score to rule them all: severity assessment in laboratory mice,
+  Steven Roger Talbot, Birgitta Struve, Laura Wassermann, Miriam Heider, Nora Weegh, Tilo Knape, Martine Hofmann,
+  Andreas von Knethen, Paulin Jirkof, Lydia Keubler, Andre Bleich, Christine Haeger, bioRxiv 2020.06.23.166801;
+  doi: https://doi.org/10.1101/2020.06.23.166801."
+  )
 )

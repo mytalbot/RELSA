@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • RELSA</title>
+<title>RELSA Wrapper — relsa_wrapper • RELSA</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,9 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="RELSA Wrapper — relsa_wrapper" />
+<meta property="og:description" content="The relsa_wrapper analyses the data set and calculates various RELSA objects for later analysis.
+Please note that the data must be in the RELSA format." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -66,7 +68,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -131,90 +133,96 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>RELSA Wrapper</h1>
+    <small class="dont-index">Source: <a href='https://github.com/mytalbot/RELSA/blob/master/R/relsa_wrapper.R'><code>R/relsa_wrapper.R</code></a></small>
+    <div class="hidden name"><code>relsa_wrapper.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>The <code>relsa_wrapper</code> analyses the data set and calculates various RELSA objects for later analysis.
+Please note that the data must be in the RELSA format.</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>relsa_wrapper</span>(
+  <span class='no'>querydata</span>,
+  <span class='kw'>baseline</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>treatment</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>condition</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>normthese</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>turnsQuery</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>dropsQuery</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>animalnr</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>ymax</span> <span class='kw'>=</span> <span class='fl'>1.2</span>,
+  <span class='kw'>pcadims</span> <span class='kw'>=</span> <span class='fl'>2</span>,
+  <span class='kw'>studylabel</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>severity</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>colorlabel</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)</pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="postop.html">postop</a></code> </p>
-        </td>
-        <td><p>Transmitter operated mice</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="relsa.html">relsa()</a></code> </p>
-        </td>
-        <td><p>Relative Severity Assessment Score</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="relsa_baselines.html">relsa_baselines()</a></code> </p>
-        </td>
-        <td><p>Baseline calculation</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="relsa_levels.html">relsa_levels()</a></code> </p>
-        </td>
-        <td><p>k+1 levels determination for RELSA reference data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="relsa_load.html">relsa_load()</a></code> </p>
-        </td>
-        <td><p>Loads data in RELSA Format</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="relsa_norm.html">relsa_norm()</a></code> </p>
-        </td>
-        <td><p>Data normalization for RELSA score calculation</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="relsa_plot.html">relsa_plot()</a></code> </p>
-        </td>
-        <td><p>Plot RELSA score and variables together</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="relsa_reference.html">relsa_reference()</a></code> </p>
-        </td>
-        <td><p>RELSA Default Reference Model</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="relsa_wrapper.html">relsa_wrapper()</a></code> </p>
-        </td>
-        <td><p>RELSA Wrapper</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>querydata</th>
+      <td><p>dataset sample data frame</p></td>
+    </tr>
+    <tr>
+      <th>baseline</th>
+      <td><p>cluster baselines from <code>relsa_baselines</code> function</p></td>
+    </tr>
+    <tr>
+      <th>treatment</th>
+      <td><p>treatment column, potential data filter for subsampling (use column name as character, e.g. "transmitter")</p></td>
+    </tr>
+    <tr>
+      <th>condition</th>
+      <td><p>condition column, potential data filter for subsampling (use column name as character, e.g. "Carprofen")</p></td>
+    </tr>
+    <tr>
+      <th>normthese</th>
+      <td><p>variable vector (colum names as character, e.g. c("hr","temp")) with the names of the variables that need "normalization"</p></td>
+    </tr>
+    <tr>
+      <th>turnsQuery</th>
+      <td><p>variable vector (colum names as character, e.g. c("hr","temp")) with the names of the variables that need "turning"</p></td>
+    </tr>
+    <tr>
+      <th>dropsQuery</th>
+      <td><p>variables to drop</p></td>
+    </tr>
+    <tr>
+      <th>animalnr</th>
+      <td><p>animal number (not id) in the data set for which an example RELSA flow is generated (defaults to 1)</p></td>
+    </tr>
+    <tr>
+      <th>ymax</th>
+      <td><p>y-max of the y axis (defaults to 1.2)</p></td>
+    </tr>
+    <tr>
+      <th>pcadims</th>
+      <td><p>for how many principal components shall the dimensional contributions be calculated (note: only 2 can be plotted, defaults to 2)</p></td>
+    </tr>
+    <tr>
+      <th>studylabel</th>
+      <td><p>you can assign an individual study name to label some of the tables in the relsa object</p></td>
+    </tr>
+    <tr>
+      <th>severity</th>
+      <td><p>you can assign a prospective severity for your experiment (has no effect on model calculations, just information)</p></td>
+    </tr>
+    <tr>
+      <th>colorlabel</th>
+      <td><p>you can assign a color label to some tables of the relsa object</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p><code>robj</code> RELSA object - a list with RELSA calculation outputs.</p>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>

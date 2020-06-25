@@ -21,7 +21,7 @@ Foremost, RELSA is not (yet) a predictor of death in laboratory animals!
 At its current stage of development, it is meant as a guideline or tool for researchers working with laboratory animals. The package was designed for monitoring the relative severity of individual animals and can also be used to determine the overall severity level of entire animal models. It is not (yet) meant as a unified solution for a) the definition b) grading and c) objective classification of severity. Nevertheless, it may help in finding more objective thresholds with more data.
 
 ## Dependencies
-In order to run the RELSA package the following additional packages are needed. Both can be loaded from CRAN: dichromat [@Yes2015], FactoMineR [@factorminerpackage] and dplyr.
+In order to run the RELSA package the following additional packages are needed. Both can be loaded from CRAN: dichromat [@Yes2015], FactoMineR [@factorminerpackage] and dplyr [@dplyrcite].
 
 ## Installation
 The following commands can be used in R to download and install the developer version of the RELSA package. The second command is required to build the associated vignettes (if needed).

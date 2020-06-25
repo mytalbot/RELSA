@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • RELSA</title>
+<title>RELSA Default Reference Model — relsa_reference • RELSA</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,8 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="RELSA Default Reference Model — relsa_reference" />
+<meta property="og:description" content="The relsa_reference functions calculates the default RELSA reference model - to keeps things simple." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -66,7 +67,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -131,90 +132,25 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>RELSA Default Reference Model</h1>
+    <small class="dont-index">Source: <a href='https://github.com/mytalbot/RELSA/blob/master/R/relsa_reference.R'><code>R/relsa_reference.R</code></a></small>
+    <div class="hidden name"><code>relsa_reference.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>The <code>relsa_reference</code> functions calculates the default RELSA reference model - to keeps things simple.</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>relsa_reference</span>()</pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="postop.html">postop</a></code> </p>
-        </td>
-        <td><p>Transmitter operated mice</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="relsa.html">relsa()</a></code> </p>
-        </td>
-        <td><p>Relative Severity Assessment Score</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="relsa_baselines.html">relsa_baselines()</a></code> </p>
-        </td>
-        <td><p>Baseline calculation</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="relsa_levels.html">relsa_levels()</a></code> </p>
-        </td>
-        <td><p>k+1 levels determination for RELSA reference data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="relsa_load.html">relsa_load()</a></code> </p>
-        </td>
-        <td><p>Loads data in RELSA Format</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="relsa_norm.html">relsa_norm()</a></code> </p>
-        </td>
-        <td><p>Data normalization for RELSA score calculation</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="relsa_plot.html">relsa_plot()</a></code> </p>
-        </td>
-        <td><p>Plot RELSA score and variables together</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="relsa_reference.html">relsa_reference()</a></code> </p>
-        </td>
-        <td><p>RELSA Default Reference Model</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="relsa_wrapper.html">relsa_wrapper()</a></code> </p>
-        </td>
-        <td><p>RELSA Wrapper</p></td>
-      </tr>
-    </tbody>
-    </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>list with baselines (bsl) and cluster levels (levels)</p>
+
   </div>
-
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
