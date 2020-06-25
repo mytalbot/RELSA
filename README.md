@@ -37,7 +37,7 @@ section for detailed function documentation.
 
 ## Data availability
 
-Raw data with labelled subgroups (treatment/condition columns) can be
+Raw data with labeled subgroups (treatment/condition columns) can be
 found in the GitHub repository folder “raw\_data”. Data are stored in
 four \*.txt files. [Here is the direct
 link](https://github.com/mytalbot/RELSA/tree/master/raw_data). The data
