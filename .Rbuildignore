@@ -2,8 +2,5 @@
 ^\.Rproj\.user$
 ^README\.Rmd$
 ^\.travis\.yml$
-^\index\.Rmd$
-^\index\.md$
 ^docs$
 ^raw_data$
-^\.Rproj\.user$
