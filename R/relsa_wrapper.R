@@ -194,7 +194,7 @@ relsa_wrapper <- function(querydata, baseline=NULL, treatment=NULL, condition=NU
   ### Calculate the most changing RELSA Weight!
   V <- NULL
   for(t in 1:length(tiere)){
-    v    <- relsaweights[deltascores$id==tiere[t],]
+    v    <- relsaweights[deltascores$id%in%tiere[t],]
 
     V    <- rbind(V, suppressWarnings( apply( v[5:dim(v)[2]],2, max, na.rm=TRUE )))
     is.na(V) <- sapply(V, is.infinite)
