@@ -30,6 +30,23 @@ relsa_wrapper <- function(querydata, baseline=NULL, treatment=NULL, condition=NU
                           turnsQuery=NULL, dropsQuery=NULL, animalnr=1, ymax=1.2,
                           pcadims=2, studylabel=NULL, severity=NULL, colorlabel=NULL){
 
+
+  ### Baseline model
+  raw          <- RELSA::postop
+  raw          <- raw[raw$treatment=="Transmitter", ]
+
+  vars         <- c("bwc", "bur2h","burON","hr","hrv", "temp", "act", "mgs")
+  turnvars     <- c("hr", "mgs", "temp")
+  org          <- cbind(raw[,1:4], raw[,vars])
+  pre          <- relsa_norm(org,   normthese=c("hr","hrv", "temp", "act", "mgs" ), ontime=1)
+  bsl          <- relsa_baselines(dataset=pre, bslday=-1, variables=vars, turnvars=turnvars)
+
+  levels       <- relsa_levels(pre, mypath="C:/MHH Bleich/Papers/Nature RELSA/Figs/", bsl,
+                               filename="Burrowing levels", drops=c("bw","score"), turns=c("hr","mgs","temp"), relsaNA=NA, k=4,
+                               showScree="no", customCol= c("red","green","blue","magenta"), seed=123, myYlim=c(0,1.4),
+                               saveTiff="no", showPlot="no")
+
+
   # Load the query data & build test case OR provide the data frame
   if(is.data.frame(querydata)){
 
@@ -68,7 +85,7 @@ relsa_wrapper <- function(querydata, baseline=NULL, treatment=NULL, condition=NU
   profile <- c()
   for(i in 1:length(unique(testset$id))){
     animal       <- i
-    R            <- relsa(testset, baseline, a=animal,  drop=dropsQuery, turnvars=turnsQuery, relsaNA=NA)$relsa
+    R            <- relsa(testset, bsl=bsl, a=animal,  drop=dropsQuery, turnvars=turnsQuery, relsaNA=NA)$relsa
     R$treatment  <- pre_test[pre_test$id==unique(pre_test$id)[animal],"treatment"]
     R$condition  <- pre_test[pre_test$id==unique(pre_test$id)[animal],"condition"]
     df           <- rbind(df, data.frame(id=unique(pre_test$id)[animal], day=R$day,
@@ -79,12 +96,15 @@ relsa_wrapper <- function(querydata, baseline=NULL, treatment=NULL, condition=NU
   deltascores    <-NULL
   for(i in 1:length(unique(testset$id))){
     animal           <- i
-    delta            <- relsa(testset, baseline, a=animal,  drop=dropsQuery, turnvars=turnsQuery, relsaNA=NA)$delta
+    delta            <- relsa(testset, bsl=bsl, a=animal,  drop=dropsQuery, turnvars=turnsQuery, relsaNA=NA)$delta
 
-    trt              <- pre_test[pre_test$id==unique(pre_test$id)[animal],"treatment"]
-    cond             <- pre_test[pre_test$id==unique(pre_test$id)[animal],"condition"]
-    deltascores      <- rbind(deltascores, data.frame(id=unique(pre_test$id)[animal], day=R$day,
-                                                      treatment=trt, condition=cond, rms=delta))
+    trt              <- treatment # pre_test[pre_test$id==unique(pre_test$id)[animal],"treatment"]
+    cond             <- condition # pre_test[pre_test$id==unique(pre_test$id)[animal],"condition"]
+    deltascores      <- rbind(deltascores, data.frame(id         = factor(rep(unique(pre_test$id)[animal], dim(delta)[1])) ,
+                                                      day        = R$day[1:dim(delta)[1]],
+                                                      treatment  = rep(trt, dim(delta)[1]),
+                                                      condition  = rep(cond, dim(delta)[1]),
+                                                      rms        = delta) )
   }
   colnames(deltascores) <- gsub('rms.', "", colnames(deltascores)) # remove rms.
 
@@ -93,14 +113,17 @@ relsa_wrapper <- function(querydata, baseline=NULL, treatment=NULL, condition=NU
   relsaweights   <-NULL
   for(i in 1:length(unique(testset$id))){
     animal       <- i
-    rw           <- relsa(testset, baseline, a=animal,  drop=dropsQuery, turnvars=turnsQuery, relsaNA=NA)$relsa[,-1]
+    rw           <- relsa(testset, bsl=bsl, a=animal,  drop=dropsQuery, turnvars=turnsQuery, relsaNA=NA)$relsa[,-1]
     rw[,c("wf","rms")] <- NULL
 
-    trt          <- pre_test[pre_test$id==unique(pre_test$id)[animal],"treatment"]
-    cond         <- pre_test[pre_test$id==unique(pre_test$id)[animal],"condition"]
+    trt          <- treatment #pre_test[pre_test$id==unique(pre_test$id)[animal],"treatment"]
+    cond         <- condition #pre_test[pre_test$id==unique(pre_test$id)[animal],"condition"]
 
-    relsaweights <- rbind(relsaweights, data.frame(id=unique(pre_test$id)[animal], day=R$day,
-                                                   treatment=trt, condition=cond,  rw) )
+    relsaweights <- rbind (relsaweights, data.frame(id        = factor(unique(pre_test$id)[animal]) ,
+                                                   day        = R$day[1:dim(rw)[1]],
+                                                   treatment  = rep(trt, dim(rw)[1]),
+                                                   condition  = rep(cond, dim(rw)[1]),
+                                                   rw)  )
   }
   colnames(relsaweights) <- gsub('rms.', "", colnames(relsaweights)) # remive rms.
 
@@ -177,8 +200,6 @@ relsa_wrapper <- function(querydata, baseline=NULL, treatment=NULL, condition=NU
     is.na(V) <- sapply(V, is.infinite)
   }
 
-
-
   Change           <- t(data.frame(apply(V,2,mean, na.rm=TRUE)))
   colnames(Change) <- colnames(V)
   rownames(Change) <- 1
@@ -197,11 +218,12 @@ relsa_wrapper <- function(querydata, baseline=NULL, treatment=NULL, condition=NU
   }else{
     tiere <- unique(df$id)
     dat   <- df[df$id==tiere[animalnr], ]
+
     plot(dat$day, dat$rms, pch=19, type="b", ylim=c(0,ymax), xlab="time", ylab="RELSA score")
     abline(h=1, lty=2, lwd=2)
-    points(dat$day[which(dat$rms==max(dat$rms, na.rm=TRUE))], max(dat$rms, na.rm=TRUE), pch=1, lwd=2, cex=2.2, col="red")
-    text(dat$day[which(dat$rms==max(dat$rms, na.rm=TRUE))]  , max(dat$rms, na.rm=TRUE),
-         labels=max(dat$rms, na.rm=TRUE), cex=0.9, pos=4, col="red")
+    #points(dat$day[which(dat$rms==max(dat$rms, na.rm=TRUE))][which(as.numeric(is.na(dat$rms))==1)[1]-1], max(dat$rms, na.rm=TRUE), pch=1, lwd=2, cex=2.2, col="red")
+    #text(dat$day[which(dat$rms==max(dat$rms, na.rm=TRUE))]  , max(dat$rms, na.rm=TRUE),
+    #     labels=max(dat$rms, na.rm=TRUE), cex=0.9, pos=4, col="red")
   }
 
   return(list(raw=testraw, normalized=testset, df=df, deltascores=deltascores, Rw=relsaweights,
