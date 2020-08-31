@@ -14,6 +14,7 @@ relsa_wrapper(
   dropsQuery = NULL,
   animalnr = 1,
   ymax = 1.2,
+  ymin = 0,
   pcadims = 2,
   studylabel = NULL,
   severity = NULL,
@@ -38,6 +39,8 @@ relsa_wrapper(
 \item{animalnr}{animal number (not id) in the data set for which an example RELSA flow is generated (defaults to 1)}
 
 \item{ymax}{y-max of the y axis (defaults to 1.2)}
+
+\item{ymin}{y-min of the y axis (defaults to 0)}
 
 \item{pcadims}{for how many principal components shall the dimensional contributions be calculated (note: only 2 can be plotted, defaults to 2)}
 

@@ -12,6 +12,7 @@
 #' @param dropsQuery variables to drop
 #' @param animalnr animal number (not id) in the data set for which an example RELSA flow is generated (defaults to 1)
 #' @param ymax y-max of the y axis (defaults to 1.2)
+#' @param ymin y-min of the y axis (defaults to 0)
 #' @param pcadims for how many principal components shall the dimensional contributions be calculated (note: only 2 can be plotted, defaults to 2)
 #' @param studylabel you can assign an individual study name to label some of the tables in the relsa object
 #' @param severity you can assign a prospective severity for your experiment (has no effect on model calculations, just information)
@@ -27,7 +28,7 @@
 #'
 
 relsa_wrapper <- function(querydata, baseline=NULL, treatment=NULL, condition=NULL, normthese=NULL,
-                          turnsQuery=NULL, dropsQuery=NULL, animalnr=1, ymax=1.2,
+                          turnsQuery=NULL, dropsQuery=NULL, animalnr=1, ymax=1.2, ymin=0,
                           pcadims=2, studylabel=NULL, severity=NULL, colorlabel=NULL){
 
 
@@ -219,7 +220,7 @@ relsa_wrapper <- function(querydata, baseline=NULL, treatment=NULL, condition=NU
     tiere <- unique(df$id)
     dat   <- df[df$id==tiere[animalnr], ]
 
-    plot(dat$day, dat$rms, pch=19, type="b", ylim=c(0,ymax), xlab="time", ylab="RELSA score")
+    plot(dat$day, dat$rms, pch=19, type="b", ylim=c(ymin,ymax), xlab="time", ylab="RELSA score")
     abline(h=1, lty=2, lwd=2)
     #points(dat$day[which(dat$rms==max(dat$rms, na.rm=TRUE))][which(as.numeric(is.na(dat$rms))==1)[1]-1], max(dat$rms, na.rm=TRUE), pch=1, lwd=2, cex=2.2, col="red")
     #text(dat$day[which(dat$rms==max(dat$rms, na.rm=TRUE))]  , max(dat$rms, na.rm=TRUE),
