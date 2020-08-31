@@ -2,7 +2,6 @@
 ^\.Rproj\.user$
 ^README\.Rmd$
 ^\.travis\.yml$
-^\index\.md$
 ^\index\.Rmd$
 ^docs$
 ^raw_data$
