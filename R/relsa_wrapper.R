@@ -102,7 +102,6 @@ relsa_wrapper <- function(querydata, baseline=NULL, treatment=NULL, condition=NU
     trt              <- pre_test[pre_test$id==unique(pre_test$id)[animal],"treatment"]
     cond             <- pre_test[pre_test$id==unique(pre_test$id)[animal],"condition"]
 
-
     preambl           <- NULL
     preambl$id        <- NULL
     preambl$day       <- NULL
@@ -133,17 +132,30 @@ relsa_wrapper <- function(querydata, baseline=NULL, treatment=NULL, condition=NU
     rw           <- relsa(testset, bsl=bsl, a=animal,  drop=dropsQuery, turnvars=turnsQuery, relsaNA=NA)$relsa[,-1]
     rw[,c("wf","rms")] <- NULL
 
-    trt          <- treatment #pre_test[pre_test$id==unique(pre_test$id)[animal],"treatment"]
-    cond         <- condition #pre_test[pre_test$id==unique(pre_test$id)[animal],"condition"]
+    trt          <-  pre_test[pre_test$id==unique(pre_test$id)[animal],"treatment"]
+    cond         <-  pre_test[pre_test$id==unique(pre_test$id)[animal],"condition"]
 
-    relsaweights <- rbind (relsaweights, data.frame(id        = factor(unique(pre_test$id)[animal]) ,
-                                                   day        = R$day[1:dim(rw)[1]],
-                                                   treatment  = rep(trt, dim(rw)[1]),
-                                                   condition  = rep(cond, dim(rw)[1]),
-                                                   rw)  )
+    preambl           <- NULL
+    preambl$id        <- NULL
+    preambl$day       <- NULL
+    preambl$treatment <- NULL
+    preambl$condition <- NULL
+
+    preambl$id        <- unique(pre_test$id)[animal]
+    preambl$day       <- R$day[1:dim(delta)[1]]
+    preambl$treatment <- trt
+    preambl$condition <- cond
+
+    relsaweights       <- rbind(relsaweights,
+                               cbind(id        = preambl$id,
+                                     day       = preambl$day,
+                                     treatment = preambl$treatment,
+                                     condition = preambl$condition,
+                                     rw))
+
+
+
   }
-  colnames(relsaweights) <- gsub('rms.', "", colnames(relsaweights)) # remive rms.
-
 
 
   # Unique animals in the query set
