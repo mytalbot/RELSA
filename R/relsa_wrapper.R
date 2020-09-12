@@ -132,8 +132,8 @@ relsa_wrapper <- function(querydata, baseline=NULL, treatment=NULL, condition=NU
     rw           <- relsa(testset, bsl=bsl, a=animal,  drop=dropsQuery, turnvars=turnsQuery, relsaNA=NA)$relsa[,-1]
     rw[,c("wf","rms")] <- NULL
 
-    trt          <-  pre_test[pre_test$id==unique(pre_test$id)[animal],"treatment"]
-    cond         <-  pre_test[pre_test$id==unique(pre_test$id)[animal],"condition"]
+    trt          <-  testset[testset$id==unique(testset$id)[animal],"treatment"]
+    cond         <-  testset[testset$id==unique(testset$id)[animal],"condition"]
 
     preambl           <- NULL
     preambl$id        <- NULL
@@ -141,8 +141,8 @@ relsa_wrapper <- function(querydata, baseline=NULL, treatment=NULL, condition=NU
     preambl$treatment <- NULL
     preambl$condition <- NULL
 
-    preambl$id        <- unique(pre_test$id)[animal]
-    preambl$day       <- R$day[1:dim(delta)[1]]
+    preambl$id        <- unique(testset$id)[animal]
+    preambl$day       <- R$day[1:dim(rw)[1]]
     preambl$treatment <- trt
     preambl$condition <- cond
 
