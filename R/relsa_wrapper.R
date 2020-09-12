@@ -70,7 +70,7 @@ relsa_wrapper <- function(querydata, baseline=NULL, treatment=NULL, condition=NU
   }
 
   testraw      <- querydata
-  vars         <- names(testraw)[length(names(testraw))+length(names(testraw))-5:length(names(testraw))] #names(testraw[,-c(1:4)])
+  vars         <- names(testraw)[5:length(names(testraw))] #names(testraw[,-c(1:4)])
   pre_test     <- cbind(testraw[,1:4], testraw[,vars])
   testset      <- relsa_norm(pre_test, normthese=normthese, ontime=1)
 
