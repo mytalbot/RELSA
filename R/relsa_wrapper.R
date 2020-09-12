@@ -99,15 +99,31 @@ relsa_wrapper <- function(querydata, baseline=NULL, treatment=NULL, condition=NU
     animal           <- i
     delta            <- relsa(testset, bsl=bsl, a=animal,  drop=dropsQuery, turnvars=turnsQuery, relsaNA=NA)$delta
 
-    trt              <- treatment # pre_test[pre_test$id==unique(pre_test$id)[animal],"treatment"]
-    cond             <- condition # pre_test[pre_test$id==unique(pre_test$id)[animal],"condition"]
-    deltascores      <- rbind(deltascores, data.frame(id         = factor(rep(unique(pre_test$id)[animal], dim(delta)[1])) ,
-                                                      day        = R$day[1:dim(delta)[1]],
-                                                      treatment  = rep(trt, dim(delta)[1]),
-                                                      condition  = rep(cond, dim(delta)[1]),
-                                                      rms        = delta) )
+    trt              <- pre_test[pre_test$id==unique(pre_test$id)[animal],"treatment"]
+    cond             <- pre_test[pre_test$id==unique(pre_test$id)[animal],"condition"]
+
+
+    preambl           <- NULL
+    preambl$id        <- NULL
+    preambl$day       <- NULL
+    preambl$treatment <- NULL
+    preambl$condition <- NULL
+
+    preambl$id        <- unique(pre_test$id)[animal]
+    preambl$day       <- R$day[1:dim(delta)[1]]
+    preambl$treatment <- trt
+    preambl$condition <- cond
+
+
+    deltascores       <- rbind(deltascores,
+                               cbind(id        = preambl$id,
+                                     day       = preambl$day,
+                                     treatment = preambl$treatment,
+                                     condition = preambl$condition,
+                                     delta))
+
+
   }
-  colnames(deltascores) <- gsub('rms.', "", colnames(deltascores)) # remove rms.
 
 
   # calculate the relsa weights
