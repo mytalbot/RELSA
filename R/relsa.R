@@ -84,7 +84,7 @@ relsa <- function(set, bsl, a=1, drop=NULL, turnvars=NULL, relsaNA=NA ){
 
     ### calculate wRELSA and Weight factor alone
     wf_sum             <- round(apply(wfactor, 1, sum, na.rm=T),2 ) # Summarize
-    wf                 <- wf_sum  / (dim(wfactor)[2] - apply(apply(wfactor,2, is.na),1,sum))
+    wf                 <- wf_sum  / (dim(wfactor)[2] - apply(apply(wfactor,2, is.na),1,sum, na.rm=TRUE))
 
     if(length(wf)>0){
       wf[is.nan(wf)] <- relsaNA

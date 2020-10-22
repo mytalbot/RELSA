@@ -52,7 +52,7 @@ relsa_levels <- function(refset, mypath, filename=NULL, bsl=bsl, drops=NULL, tur
                                          centers=i)$withinss)
     plot(1:15, wss, type="b", xlab="Number of Clusters",
          ylab="Within groups sum of squares", pch=19, cex.lab=1.4, cex.axis=1.4)
-    abline(v=4, col="red", lwd=2, lty=2)
+    abline(v=k, col="red", lwd=2, lty=2)
   }
 
   ##### kmeans with k-clusters with or without seeding
