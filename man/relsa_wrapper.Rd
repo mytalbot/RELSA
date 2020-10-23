@@ -18,7 +18,11 @@ relsa_wrapper(
   pcadims = 2,
   studylabel = NULL,
   severity = NULL,
-  colorlabel = NULL
+  colorlabel = NULL,
+  showScree = "yes",
+  saveTiff = "no",
+  showPlot = "no",
+  k = 6
 )
 }
 \arguments{

@@ -29,7 +29,8 @@
 
 relsa_wrapper <- function(querydata, baseline=NULL, treatment=NULL, condition=NULL, normthese=NULL,
                           turnsQuery=NULL, dropsQuery=NULL, animalnr=1, ymax=1.2, ymin=0,
-                          pcadims=2, studylabel=NULL, severity=NULL, colorlabel=NULL){
+                          pcadims=2, studylabel=NULL, severity=NULL, colorlabel=NULL,
+                          showScree="yes", saveTiff="no", showPlot="no", k=6){
 
 
   ### Baseline model
@@ -43,9 +44,9 @@ relsa_wrapper <- function(querydata, baseline=NULL, treatment=NULL, condition=NU
   bsl          <- relsa_baselines(dataset=pre, bslday=-1, variables=vars, turnvars=turnvars)
 
   levels       <- relsa_levels(pre, mypath="C:/MHH Bleich/Papers/Nature RELSA/Figs/", bsl,
-                               filename="Burrowing levels", drops=c("bw","score"), turns=c("hr","mgs","temp"), relsaNA=NA, k=4,
-                               showScree="no", customCol= c("red","green","blue","magenta"), seed=123, myYlim=c(0,1.4),
-                               saveTiff="no", showPlot="no")
+                               filename="Burrowing levels", drops=c("bw","score"), turns=c("hr","mgs","temp"), relsaNA=NA, k=k,
+                               showScree=showScree, customCol= c("red","green","blue","magenta"), seed=123, myYlim=c(0,1.4),
+                               saveTiff=saveTiff, showPlot=showPlot)
 
 
   # Load the query data & build test case OR provide the data frame
