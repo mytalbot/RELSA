@@ -20,7 +20,6 @@ relsa_wrapper(
   severity = NULL,
   colorlabel = NULL,
   showScree = "yes",
-  saveTiff = "no",
   showPlot = "no",
   k = 6
 )
@@ -53,6 +52,12 @@ relsa_wrapper(
 \item{severity}{you can assign a prospective severity for your experiment (has no effect on model calculations, just information)}
 
 \item{colorlabel}{you can assign a color label to some tables of the relsa object}
+
+\item{showScree}{shows the scree plot (gets overwritten by showPlot)}
+
+\item{showPlot}{shows the k-means plot (ordered)}
+
+\item{k}{the number of k-clusters in the k-means analysis}
 }
 \value{
 \code{robj} RELSA object - a list with RELSA calculation outputs.

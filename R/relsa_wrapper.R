@@ -17,7 +17,10 @@
 #' @param studylabel you can assign an individual study name to label some of the tables in the relsa object
 #' @param severity you can assign a prospective severity for your experiment (has no effect on model calculations, just information)
 #' @param colorlabel you can assign a color label to some tables of the relsa object
-
+#' @param showScree shows the scree plot (gets overwritten by showPlot)
+#' @param showPlot shows the k-means plot (ordered)
+#' @param k the number of k-clusters in the k-means analysis
+#'
 #' @return \code{robj} RELSA object - a list with RELSA calculation outputs.
 #'
 #' @importFrom utils read.table
@@ -30,7 +33,7 @@
 relsa_wrapper <- function(querydata, baseline=NULL, treatment=NULL, condition=NULL, normthese=NULL,
                           turnsQuery=NULL, dropsQuery=NULL, animalnr=1, ymax=1.2, ymin=0,
                           pcadims=2, studylabel=NULL, severity=NULL, colorlabel=NULL,
-                          showScree="yes", saveTiff="no", showPlot="no", k=6){
+                          showScree="yes", showPlot="no", k=6){
 
 
   ### Baseline model
@@ -46,7 +49,7 @@ relsa_wrapper <- function(querydata, baseline=NULL, treatment=NULL, condition=NU
   levels       <- relsa_levels(pre, mypath="C:/MHH Bleich/Papers/Nature RELSA/Figs/", bsl,
                                filename="Burrowing levels", drops=c("bw","score"), turns=c("hr","mgs","temp"), relsaNA=NA, k=k,
                                showScree=showScree, customCol= c("red","green","blue","magenta"), seed=123, myYlim=c(0,1.4),
-                               saveTiff=saveTiff, showPlot=showPlot)
+                               saveTiff="no", showPlot=showPlot)
 
 
   # Load the query data & build test case OR provide the data frame

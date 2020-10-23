@@ -4,3 +4,7 @@
 ^\.travis\.yml$
 ^docs$
 ^raw_data$
+^sourcefiles$
+^pkgdown$
+^index\.Rmd$
+^index\.md$
