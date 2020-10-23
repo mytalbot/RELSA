@@ -257,5 +257,6 @@ relsa_wrapper <- function(querydata, baseline=NULL, treatment=NULL, condition=NU
   }
 
   return(list(raw=testraw, normalized=testset, df=df, deltascores=deltascores, Rw=relsaweights,
-              relsamax=relsamax, PCAcontrb=contributions, PCAobj=pca, mean_max_Rw_change_SD= ChangeSD, mean_max_Rw_change=Change, n=length(tiere)))
+              relsamax=relsamax, PCAcontrb=contributions, PCAobj=pca, mean_max_Rw_change_SD= ChangeSD,
+              mean_max_Rw_change=Change, n=length(tiere), levels=levels))
 }
