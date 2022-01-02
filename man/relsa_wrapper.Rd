@@ -19,6 +19,7 @@ relsa_wrapper(
   studylabel = NULL,
   severity = NULL,
   colorlabel = NULL,
+  doPCA = TRUE,
   showScree = "yes",
   showPlot = "no",
   k = 6
@@ -52,6 +53,8 @@ relsa_wrapper(
 \item{severity}{you can assign a prospective severity for your experiment (has no effect on model calculations, just information)}
 
 \item{colorlabel}{you can assign a color label to some tables of the relsa object}
+
+\item{doPCA}{calculate the PCA or skip}
 
 \item{showScree}{shows the scree plot (gets overwritten by showPlot)}
 

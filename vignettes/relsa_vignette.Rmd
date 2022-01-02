@@ -55,7 +55,7 @@ For the current version of RELSA, the tabular data must follow a specific format
 
 The table should have an index column (the first one) without a header. The animal id should be a short but unique identifier. The treatment column contains experimental information, e.g. about the nature of an experiment (Transmitter/Sham, etc). The condition column includes additional information such as anesthesia, death or any other "condition" you might want to include. At the moment, only two columns can be used to specify conditions for filtering. Both can be used as specifications in the `relsa_load` function to load subsets of the data.
 
-The “day” column contains the time information of the data. **This column should be of equal length for each animal** in the table even if there are no data. Just leave the fields empty. If data are not entered at the same length. The `relsa_load` function  will take care of this (and will show a warning). The RELSA convention for baseline coding is -1. However, you can design this column differently (e.g. hours instead of days), as long as it is continuously increasing. 
+The “day” column contains the time information of the data. **This column should be of equal length for each animal** in the table even if there are no data. Just leave the fields empty. If data are not entered at the same length, the `relsa_load` function  will take care of this (and will show a warning). The RELSA convention for baseline coding is -1. However, you can design this column differently (e.g. hours instead of days), as long as it is continuously increasing. 
 
 **IMPORTANT:** The variables in the baseline/training data must match the names in the test data which are very likely to come from a different table.
 
@@ -154,6 +154,7 @@ RELSA        <- relsa(set = pre, bsl=refmodel[[1]], a = animal,
                       drop=c("bw", "score", "mgs30", "mgs180"), turnvars = turnvars)
 head(RELSA$relsa$rms)
 ```
+
 
 ### References
  

@@ -17,6 +17,7 @@
 #' @param studylabel you can assign an individual study name to label some of the tables in the relsa object
 #' @param severity you can assign a prospective severity for your experiment (has no effect on model calculations, just information)
 #' @param colorlabel you can assign a color label to some tables of the relsa object
+#' @param doPCA calculate the PCA or skip
 #' @param showScree shows the scree plot (gets overwritten by showPlot)
 #' @param showPlot shows the k-means plot (ordered)
 #' @param k the number of k-clusters in the k-means analysis
@@ -32,7 +33,7 @@
 
 relsa_wrapper <- function(querydata, baseline=NULL, treatment=NULL, condition=NULL, normthese=NULL,
                           turnsQuery=NULL, dropsQuery=NULL, animalnr=1, ymax=1.2, ymin=0,
-                          pcadims=2, studylabel=NULL, severity=NULL, colorlabel=NULL,
+                          pcadims=2, studylabel=NULL, severity=NULL, colorlabel=NULL, doPCA=TRUE,
                           showScree="yes", showPlot="no", k=6){
 
 
@@ -195,33 +196,34 @@ relsa_wrapper <- function(querydata, baseline=NULL, treatment=NULL, condition=NU
 
 
   ### PCA -variable contributions for the first 2 dimensions
-  q         <- testset[5:dim(testset)[2]]
+  if(doPCA==TRUE){
+    q         <- testset[5:dim(testset)[2]]
 
-  if((5-sum(apply(q,2,sum, na.rm=TRUE)==0))==1){
+    if((5-sum(apply(q,2,sum, na.rm=TRUE)==0))==1){
 
-    contributions <- NA
+      contributions <- NA
 
-  }else{
-    # drop the drops
-    if(sum(names(q) %in% dropsQuery)==0){
-      q   <- q[complete.cases(q),]
     }else{
-      nn  <- which(names(q) %in% dropsQuery)
-      q   <- q[,-nn]
-      q   <- q[complete.cases(q),]
+      # drop the drops
+      if(sum(names(q) %in% dropsQuery)==0){
+        q   <- q[complete.cases(q),]
+      }else{
+        nn  <- which(names(q) %in% dropsQuery)
+        q   <- q[,-nn]
+        q   <- q[complete.cases(q),]
+      }
+
+     q      <- q[complete.cases(q),]
+
+     pca    <- PCA(q, scale.unit = TRUE, graph = FALSE)
+
+      if(pcadims==1){
+        contributions <- pca$var$contrib[, 1]
+      }else{
+        contributions <- apply(pca$var$contrib[, 1:pcadims ],1,sum)
+      }
     }
-
-   q      <- q[complete.cases(q),]
-
-   pca    <- PCA(q, scale.unit = TRUE, graph = FALSE)
-
-    if(pcadims==1){
-      contributions <- pca$var$contrib[, 1]
-    }else{
-      contributions <- apply(pca$var$contrib[, 1:pcadims ],1,sum)
-    }
-  }
-
+   }else{}
 
 
   ### Calculate the most changing RELSA Weight!
@@ -259,7 +261,14 @@ relsa_wrapper <- function(querydata, baseline=NULL, treatment=NULL, condition=NU
     #     labels=max(dat$rms, na.rm=TRUE), cex=0.9, pos=4, col="red")
   }
 
-  return(list(raw=testraw, normalized=testset, df=df, deltascores=deltascores, Rw=relsaweights,
+  # mit oder ohne PCA
+  if(doPCA==TRUE){
+    return(list(raw=testraw, normalized=testset, df=df, deltascores=deltascores, Rw=relsaweights,
               relsamax=relsamax, PCAcontrb=contributions, PCAobj=pca, mean_max_Rw_change_SD= ChangeSD,
               mean_max_Rw_change=Change, n=length(tiere), levels=levels))
+  }else{
+    return(list(raw=testraw, normalized=testset, df=df, deltascores=deltascores, Rw=relsaweights,
+                relsamax=relsamax, mean_max_Rw_change_SD= ChangeSD,
+                mean_max_Rw_change=Change, n=length(tiere), levels=levels))
+  }
 }
