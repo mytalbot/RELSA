@@ -46,7 +46,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -75,7 +75,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/mytalbot/RELSA/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -89,7 +89,7 @@
 
       
 
-      </header><div class="row">
+      </header><script src="relsa_score_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>RELSA Score</h1>
@@ -106,37 +106,32 @@
 <div id="relsa-relative-severity-assessment-relsa-score" class="section level2">
 <h2 class="hasAnchor">
 <a href="#relsa-relative-severity-assessment-relsa-score" class="anchor"></a>RELSA: Relative Severity Assessment (RELSA) Score</h2>
-<p>The <code>relsa</code> function from the RELSA package allows the calculation of a (composite) score for relative severity assessment in individual animals using collections of experimental outcome variables or single parameters. The RELSA Vignette covers how to load, access and calculate RELSA scores in detail.</p>
-<p>The purpose of this Vignette is to provide a better understanding of what RELSA is, how it is calculated and what it can be used for.</p>
+<p>The <code>relsa</code> function from the RELSA package allows the calculation of a (composite) score for relative severity assessment in individual animals using collections of experimental outcome variables or single parameters. The RELSA Vignette covers how to load, access, and calculate RELSA scores in detail.</p>
+<p>This Vignette aims to provide a better understanding of what RELSA is, how it is calculated, and what it can be used for.</p>
 <p>RELSA scores express severity in two ways:</p>
 <ol style="list-style-type: decimal">
 <li>The score provides a metric for direct comparison within a relative context.</li>
 <li>Relative context is established by providing a reference model with assumed (biological) severity.</li>
 </ol>
-<p>There is a possible third option in which <em>k-means</em> clustering is be applied to the baseline model in order to obtain <em>k</em>-levels within the data range. This way, an unbiased subsetting of the calculated scores into classes is achieved (for further classification analysis, etc).</p>
-<p>Thus, animals from different experimental backgrounds and conditions can be compared. However, it is important to note that the RELSA score is a reflection of what happens in the measured data. If the data, for some reason, do not reflect severity in animals the RELSA score might be unsuited for comparisons.</p>
+<p>There is a possible third option in which <em>k-means</em> clustering is applied to the baseline model to obtain <em>k</em>-levels within the data range. This way, an unbiased subsetting of the calculated scores into classes is achieved (for further classification analysis, etc.).</p>
+<p>Thus, animals from different experimental backgrounds and conditions can be compared. However, it is essential to note that the RELSA score reflects what happens in the measured data. If the data, for some reason, do not reflect severity in animals, the RELSA score might be unsuited for comparisons.</p>
 </div>
 <div id="relsa-calculation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#relsa-calculation" class="anchor"></a>RELSA calculation</h2>
 <p>This section explains how the RELSA score is calculated step by step. The <code>relsa</code> function accepts normalized data in the RELSA format. How these tables are built is explained in detail in the RELSA Vignette.</p>
-<p>The function requires a reference model (bsl) for establishing a relative context within an animal model with “known” severity. This severity can be of qualitative nature as tested animals will always be compared to this model - thus the word “relative” in RELSA. With the <code>drop</code> object variables can be excluded from the current analysis. <code>turnvars</code> defines variables where measured values <em>in</em>crease rather than <em>de</em>crease when severity impacts the animal.</p>
+<p>The function requires a reference model for establishing a relative context within an animal model with “known” severity. This severity can be qualitative as tested animals will always be compared to this model - thus, the word “relative” in RELSA. The <code>drop</code> object variables can be excluded from the current analysis. <code>turnvars</code> defines variables where measured values <em>in</em>crease rather than <em>de</em>crease when severity impacts the animal.</p>
 <pre><code><a href="../reference/relsa.html"># RELSA function
 relsa (set, bsl, a=1, drop=NULL, turnvars=NULL)</a></code></pre>
 <div id="subsetting-of-the-normalized-test-data" class="section level3">
 <h3 class="hasAnchor">
 <a href="#subsetting-of-the-normalized-test-data" class="anchor"></a>Subsetting of the normalized test data</h3>
-<p>The resulting table of normalized variables looks like the following example for a transmitter-operated mouse with 12 measured variables. Sometimes, not all of them are needed in the RELSA calculation (bw, bwc and clinical score are strongly correlated so that just bwc is used; further, mouse grimace scale 30 min and 180 lack baseline values and show missing data on the following days, so they will be skipped here as well).</p>
+<p>The resulting table of normalized variables looks like the following example for a transmitter-operated mouse with six outcome measures. Sometimes, not all of them are needed in the RELSA calculation. For example, variables can be dropped with the <code>drop</code> object.</p>
+<p>(bw, bwc and clinical score are strongly correlated so that just bwc is used; further, mouse grimace scale 30 min and 180 lack baseline values and show missing data on the following days, so they will be skipped here as well).</p>
 <table class="table">
 <thead><tr class="header">
 <th align="right">day</th>
-<th align="right">bw</th>
 <th align="right">bwc</th>
-<th align="right">score</th>
-<th align="right">mgs</th>
-<th align="right">mgs30</th>
-<th align="right">mgs180</th>
-<th align="right">bur2h</th>
 <th align="right">burON</th>
 <th align="right">hr</th>
 <th align="right">hrv</th>
@@ -146,12 +141,6 @@ relsa (set, bsl, a=1, drop=NULL, turnvars=NULL)</a></code></pre>
 <tbody>
 <tr class="odd">
 <td align="right">-1</td>
-<td align="right">18.4</td>
-<td align="right">100.00</td>
-<td align="right">0</td>
-<td align="right">100.00</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
 <td align="right">100.00</td>
 <td align="right">100.00</td>
 <td align="right">100.00</td>
@@ -161,13 +150,7 @@ relsa (set, bsl, a=1, drop=NULL, turnvars=NULL)</a></code></pre>
 </tr>
 <tr class="even">
 <td align="right">0</td>
-<td align="right">16.1</td>
 <td align="right">87.50</td>
-<td align="right">2</td>
-<td align="right">112.50</td>
-<td align="right">0.86</td>
-<td align="right">0.36</td>
-<td align="right">26.46</td>
 <td align="right">62.12</td>
 <td align="right">145.65</td>
 <td align="right">16.50</td>
@@ -176,13 +159,7 @@ relsa (set, bsl, a=1, drop=NULL, turnvars=NULL)</a></code></pre>
 </tr>
 <tr class="odd">
 <td align="right">1</td>
-<td align="right">16.7</td>
 <td align="right">90.76</td>
-<td align="right">2</td>
-<td align="right">193.75</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">90.56</td>
 <td align="right">135.72</td>
 <td align="right">128.96</td>
 <td align="right">38.96</td>
@@ -191,13 +168,7 @@ relsa (set, bsl, a=1, drop=NULL, turnvars=NULL)</a></code></pre>
 </tr>
 <tr class="even">
 <td align="right">2</td>
-<td align="right">17.1</td>
 <td align="right">92.93</td>
-<td align="right">2</td>
-<td align="right">165.62</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">74.97</td>
 <td align="right">137.62</td>
 <td align="right">118.63</td>
 <td align="right">54.44</td>
@@ -206,13 +177,7 @@ relsa (set, bsl, a=1, drop=NULL, turnvars=NULL)</a></code></pre>
 </tr>
 <tr class="odd">
 <td align="right">3</td>
-<td align="right">17.3</td>
 <td align="right">94.02</td>
-<td align="right">1</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">106.30</td>
 <td align="right">56.89</td>
@@ -221,13 +186,7 @@ relsa (set, bsl, a=1, drop=NULL, turnvars=NULL)</a></code></pre>
 </tr>
 <tr class="even">
 <td align="right">4</td>
-<td align="right">17.3</td>
 <td align="right">94.02</td>
-<td align="right">1</td>
-<td align="right">65.62</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">97.36</td>
 <td align="right">96.13</td>
 <td align="right">115.87</td>
 <td align="right">57.39</td>
@@ -249,13 +208,12 @@ delta = 100 - subdata[-1]<br>
 delta[,turnvars] = delta[, turnvars]* -1</p></li>
 </ul>
 <p>With [-1] the daily baseline values at day=-1 are not recognized in the calculation.</p>
-<p>Also - after this step - all differences &lt;0 are set to 0 so that there are no negative values. A negative value indicates a full recovery. Negative values play no role in the RELSA calculation so that they are eliminated. Zeros also point to non-missing but recovered data. This difference is important since missing values will not contribute to mathematical calculations such as the mean. This would skew the results and give weight to variables that are not present in the data.</p>
-<p>An example for a cleaned difference matrix (D) is shown in the following example (in which the following variables were dropped: c(“bw”,“score”,“mgs30”,“mgs180” ) and turned: c(“hr”, “mgs”,“temp” ). Missing data are indicated as NAs.</p>
+<p>Also - after this step - all differences &lt;0 are set to 0 so that there are no negative values. A negative value indicates a full recovery. Negative values play no role in the RELSA calculation so that they are eliminated. Zeros also point to non-missing but recovered data. This difference is essential since missing values will not contribute to mathematical calculations such as the mean. This would skew the results and give weight to variables not present in the data.</p>
+<p>An example for a cleaned difference matrix (D) is shown in the following example (in which the no variables were dropped and two turned: c(“hr”, “temp” ). Missing data are indicated as NAs.</p>
+<pre><code>#&gt; NULL</code></pre>
 <table class="table">
 <thead><tr class="header">
 <th align="right">bwc</th>
-<th align="right">mgs</th>
-<th align="right">bur2h</th>
 <th align="right">burON</th>
 <th align="right">hr</th>
 <th align="right">hrv</th>
@@ -270,13 +228,9 @@ delta[,turnvars] = delta[, turnvars]* -1</p></li>
 <td align="right">0.00</td>
 <td align="right">0.00</td>
 <td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
 </tr>
 <tr class="even">
 <td align="right">12.50</td>
-<td align="right">12.50</td>
-<td align="right">73.54</td>
 <td align="right">37.88</td>
 <td align="right">45.65</td>
 <td align="right">83.50</td>
@@ -285,8 +239,6 @@ delta[,turnvars] = delta[, turnvars]* -1</p></li>
 </tr>
 <tr class="odd">
 <td align="right">9.24</td>
-<td align="right">93.75</td>
-<td align="right">9.44</td>
 <td align="right">0.00</td>
 <td align="right">28.96</td>
 <td align="right">61.04</td>
@@ -295,8 +247,6 @@ delta[,turnvars] = delta[, turnvars]* -1</p></li>
 </tr>
 <tr class="even">
 <td align="right">7.07</td>
-<td align="right">65.62</td>
-<td align="right">25.03</td>
 <td align="right">0.00</td>
 <td align="right">18.63</td>
 <td align="right">45.56</td>
@@ -306,8 +256,6 @@ delta[,turnvars] = delta[, turnvars]* -1</p></li>
 <tr class="odd">
 <td align="right">5.98</td>
 <td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
 <td align="right">6.30</td>
 <td align="right">43.11</td>
 <td align="right">0.27</td>
@@ -315,8 +263,6 @@ delta[,turnvars] = delta[, turnvars]* -1</p></li>
 </tr>
 <tr class="even">
 <td align="right">5.98</td>
-<td align="right">0.00</td>
-<td align="right">2.64</td>
 <td align="right">3.87</td>
 <td align="right">15.87</td>
 <td align="right">42.61</td>
@@ -329,14 +275,12 @@ delta[,turnvars] = delta[, turnvars]* -1</p></li>
 <div id="calculation-of-the-relsa-score" class="section level3">
 <h3 class="hasAnchor">
 <a href="#calculation-of-the-relsa-score" class="anchor"></a>Calculation of the RELSA score</h3>
-<p>The baseline model is required for context. The values in the baseline model show the extrema for each variable in the current model. As such, they are the maximum (or minimum) reached values coding for some virtually known or prospective severity. Every test animal with its unique values and variables will be compared to these baseline values arithmetically to yield a RELSA weight factor (Rw), which is also an effect size - regularized to the maximum deviation of the reference set.</p>
-<p><span class="math display">\[Rw=\frac{|100-i|}{|100-max_i,ref)|}\]</span> For example, if the lowest reached body weight change (bwc) value in an animal of the training data is, e.g. 15 % and the actual loss in a test animal is 11 % , Rw results to Rw=(100-89)/(100-85) = 0.73. In other words, the actual mouse reached 73 % of the maximum bwc deviation of the baseline data. Since context is relevant here, this also means that the animal also experiences 73 % of the maximum reached severity of the baseline model. This is repeated for each day and available variable.</p>
-<p>Following the example above, the resulting RELSA weights (Rw) are represented in the following matrix:</p>
+<p>The baseline model is required for context. The values in the baseline model show the extrema for each variable in the current model. They are the maximum (or minimum) reached values coding for some virtually known or prospective severity. Every test animal with its unique values and variables will be compared to these baseline values arithmetically to yield a RELSA weight factor (RW), which is also an effect size - regularized to the maximum deviation of the reference set.</p>
+<p><span class="math display">\[RW=\frac{|100-i|}{|100-max_i,ref)|}\]</span> For example, if the lowest reached body weight change (bwc) value in an animal of the training data is, e.g., 15 % and the actual loss in a test animal is 11 %, RW results to RW=(100-89)/(100-85) = 0.73. In other words, the actual mouse reached 73 % of the maximum bwc deviation of the baseline data. Since context is relevant here, this also means that the animal also experiences 73 % of the utmost reached severity of the baseline model. This is repeated for each day and available variable.</p>
+<p>Following the example above, the resulting RELSA weights (RW) are represented in the following matrix:</p>
 <table class="table">
 <thead><tr class="header">
 <th align="right">bwc</th>
-<th align="right">mgs</th>
-<th align="right">bur2h</th>
 <th align="right">burON</th>
 <th align="right">hr</th>
 <th align="right">hrv</th>
@@ -351,13 +295,9 @@ delta[,turnvars] = delta[, turnvars]* -1</p></li>
 <td align="right">0.00</td>
 <td align="right">0.00</td>
 <td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
 </tr>
 <tr class="even">
 <td align="right">0.81</td>
-<td align="right">0.04</td>
-<td align="right">0.74</td>
 <td align="right">0.38</td>
 <td align="right">0.85</td>
 <td align="right">0.91</td>
@@ -366,8 +306,6 @@ delta[,turnvars] = delta[, turnvars]* -1</p></li>
 </tr>
 <tr class="odd">
 <td align="right">0.60</td>
-<td align="right">0.31</td>
-<td align="right">0.09</td>
 <td align="right">0.00</td>
 <td align="right">0.54</td>
 <td align="right">0.66</td>
@@ -376,8 +314,6 @@ delta[,turnvars] = delta[, turnvars]* -1</p></li>
 </tr>
 <tr class="even">
 <td align="right">0.46</td>
-<td align="right">0.21</td>
-<td align="right">0.25</td>
 <td align="right">0.00</td>
 <td align="right">0.35</td>
 <td align="right">0.50</td>
@@ -387,8 +323,6 @@ delta[,turnvars] = delta[, turnvars]* -1</p></li>
 <tr class="odd">
 <td align="right">0.39</td>
 <td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
 <td align="right">0.12</td>
 <td align="right">0.47</td>
 <td align="right">0.06</td>
@@ -396,8 +330,6 @@ delta[,turnvars] = delta[, turnvars]* -1</p></li>
 </tr>
 <tr class="even">
 <td align="right">0.39</td>
-<td align="right">0.00</td>
-<td align="right">0.03</td>
 <td align="right">0.04</td>
 <td align="right">0.30</td>
 <td align="right">0.46</td>
@@ -406,8 +338,8 @@ delta[,turnvars] = delta[, turnvars]* -1</p></li>
 </tr>
 </tbody>
 </table>
-<p>The weights are showing the <em>magnitude of variable deviation</em>. They generalize the mean differences in each animal that are further regularized by the extrema of the reference model. Calculating the mean for these values will not reflect the actual situation in terms of severity. Because we are looking for the extrema indicating potential severity, magnitude matters. In statistics, this is traditionally solved by squaring numbers. Therefore, we deem the root mean square of the combined weight factors as a reasonable choice for the final RELSA score calculation - giving larger deltas (weights or effects) more weight.</p>
-<p><span class="math display">\[RELSA(t)=\sqrt{\frac{1}{n}\sum_{i=1}^n (R_w)_i^2}\]</span></p>
+<p>The weights show the <em>magnitude of variable deviation</em>. They generalize the mean differences in each animal that are further regularized by the extrema of the reference model. Calculating the mean for these values will not reflect the actual situation in terms of severity because we are looking for the extrema indicating potential severity, magnitude matters. In statistics, this is traditionally solved by squaring numbers. Therefore, we deem the combined weight factor’s root mean square (RMS) as a reasonable choice for the final RELSA score calculation - giving larger deltas (weights or effects) more weight.</p>
+<p><span class="math display">\[RELSA(t)=\sqrt{\frac{1}{n}\sum_{i=1}^n (RW)_i^2}\]</span></p>
 <table class="table">
 <thead><tr class="header">
 <th align="right">day</th>
@@ -420,15 +352,15 @@ delta[,turnvars] = delta[, turnvars]* -1</p></li>
 </tr>
 <tr class="even">
 <td align="right">0</td>
-<td align="right">0.68</td>
+<td align="right">0.73</td>
 </tr>
 <tr class="odd">
 <td align="right">1</td>
-<td align="right">0.49</td>
+<td align="right">0.55</td>
 </tr>
 <tr class="even">
 <td align="right">2</td>
-<td align="right">0.40</td>
+<td align="right">0.44</td>
 </tr>
 <tr class="odd">
 <td align="right">3</td>
@@ -436,17 +368,17 @@ delta[,turnvars] = delta[, turnvars]* -1</p></li>
 </tr>
 <tr class="even">
 <td align="right">4</td>
-<td align="right">0.35</td>
+<td align="right">0.41</td>
 </tr>
 </tbody>
 </table>
 </div>
-<div id="use-case-comparison-of-sham-vs-transmitter-implanted-mice" class="section level3">
+<div id="use-case-comparison-of-sham-vs--transmitter-implanted-mice" class="section level3">
 <h3 class="hasAnchor">
-<a href="#use-case-comparison-of-sham-vs-transmitter-implanted-mice" class="anchor"></a>Use-case: Comparison of sham vs transmitter implanted mice</h3>
-<p>In the end, comparisons between, e.g. sham and transmitter-operated animals are possible. In the following example, seven variables are used in the calculation of the respective RELSA scores (time points are days here). Day=-1 is the baseline physiological state and day=0 is a post-operational state with the expected maximum severity.</p>
-<p>It can clearly be seen that the relative severity of the transmitter implantation is larger than in the sham-operated animal. However, the course of both lines is rather similar, indicating that experimental procedures are very well reflected in each of the two cases and differences can be attributed to differences in severity.</p>
-<p>Further, cluster levels show that the sham-operated animal recovers faster. Here, the slope of the RELSA curve is much steeper than in the transmitter-operated animal and values decrease much faster back to physiological levels (the sham animal recovers at around day 2 compared to day 8 in the transmitter-operated animal).</p>
+<a href="#use-case-comparison-of-sham-vs--transmitter-implanted-mice" class="anchor"></a>Use-case: Comparison of sham vs. transmitter-implanted mice</h3>
+<p>In the end, comparisons between, e.g., sham and transmitter-operated animals are possible. In the following example, seven six variables are used to calculate the respective RELSA scores (time points are days here). Day=-1 is the baseline physiological state, and day=0 is a post-operational state with the expected maximum severity.</p>
+<p>It can be seen that the relative severity of the transmitter implantation is more prominent than in the sham-operated animal. However, the course of both lines is somewhat similar, indicating that experimental procedures are very well reflected in each of the two cases, and differences can be attributed to differences in severity.</p>
+<p>Further, cluster levels show that the sham-operated animal recovers faster. Here, the slope of the RELSA curve is much steeper than in the transmitter-operated animal, and values decrease much more quickly back to physiological levels (the sham animal recovers at around day 2 compared to day 8 in the transmitter-operated animal).</p>
 <p><img src="relsa_score_files/figure-html/unnamed-chunk-10-1.png" width="672"></p>
 </div>
 </div>
@@ -467,7 +399,7 @@ delta[,turnvars] = delta[, turnvars]* -1</p></li>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

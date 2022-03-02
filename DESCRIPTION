@@ -2,7 +2,7 @@ Package: RELSA
 Type: Package
 Title: Relative Severity Assessment Score 
 Version: 0.0.1.9000
-Year: 2020
+Year: 2022
 Authors@R: 
     person(given = "Steven",
            family = "Talbot",
@@ -10,14 +10,19 @@ Authors@R:
            email = "talbot.steven@mh-hannover.de",
            comment = c(ORCID = "0000-0002-9062-4065"))
 Maintainer: Steven R. Talbot <talbot.steven@mh-hannover.de>
-Description: The RELSA package contains a set of functions for relative severity assessment in laboratory animals.
-   In animal-based research, the problem of severity classification is crucial. As animals cannot communicate their state of well-being, 
-   scientists need reliable tools for monitoring severity as closely as possible. It has been shown that a diversity of behavioral tests 
-   (and others) may serve this purpose. However, the main issue with these approaches is that they are rather specific and difficult to
-   transfer to other animal models. A comprehensive and easy-to-use toolbox for the assessment and comparison of different variables and 
-   animal models is missing. RELSA offers first insight into this topic by providing a composite score for an arbitrary number of input 
-   variables and the possibility of comparing different animal models based on actual value changes within a relative context. 
-   This will allow close severity monitoring of individual animals but also bulk-analysis of overall reached severity levels of entire models.
+Description: The RELSA package contains a set of functions for relative severity
+   assessment in laboratory animals.   In animal-based research, the problem of 
+   severity assessment is crucial. As animals cannot communicate their state of
+   well-being, scientists need reliable tools for monitoring the severity of
+   experimental procedures as closely as possible. It has been shown that a 
+   diversity of behavioral tests   (and others) may serve this purpose. However,
+   the main issue with these approaches is that they are rather specific and 
+   challenging to transfer to other animal models. A comprehensive and 
+   easy-to-use toolbox for the multidimensional analysis of such data is RELSA. 
+   The RELSA procedure provides an evidence-based, holistic insight into the
+   multifaceted topic of severity. In addition, it provides a metric that can 
+   compare individual animals, experimental subgroups, and animal models by 
+   providing the qualitative context of a reference set.  
 License: GPL-3
 Encoding: UTF-8
 LazyData: true

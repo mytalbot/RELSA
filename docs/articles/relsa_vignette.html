@@ -46,7 +46,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -75,7 +75,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/mytalbot/RELSA/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -89,7 +89,7 @@
 
       
 
-      </header><div class="row">
+      </header><script src="relsa_vignette_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>RELSA Vignette</h1>
@@ -109,13 +109,13 @@
 <div id="what-is-relsa" class="section level3">
 <h3 class="hasAnchor">
 <a href="#what-is-relsa" class="anchor"></a>What is RELSA?</h3>
-<p>The RELSA package contains a set of functions for <strong>relative severity assessment in laboratory animals.</strong> In animal-based research, the problem of severity classification is crucial. As animals cannot communicate their state of well-being, scientists need reliable tools for monitoring severity as closely as possible. It has been shown that a diversity of behavioral tests (and others) may serve this purpose. However, the main issue with these approaches is that they are rather specific and difficult to transfer to other animal models. A comprehensive and easy-to-use toolbox for the assessment and comparison of different variables and animal models is missing. RELSA offers first insight into this topic by providing a composite score for an arbitrary number of input variables and the possibility of comparing different animal models based on actual value changes within a relative context. This will allow close severity monitoring of individual animals but also bulk-analysis of overall reached severity levels of entire models.</p>
+<p>The RELSA package comprises a set of functions for <strong>REL</strong>lative <strong>S</strong>everity <strong>A</strong>ssessment in Laboratory animals. In animal-based research, the problem of severity classification is crucial. As animals cannot communicate their state of well-being, scientists need reliable tools for monitoring severity as closely as possible. It has been shown that a diversity of behavioral tests (and others) may serve this purpose. However, the main issue with these approaches is that they are rather specific and challenging to transfer to other animal models. A comprehensive and easy-to-use toolbox for assessing and comparing different variables and animal models is missing. RELSA offers a first insight into this topic by providing a composite score for an arbitrary number of input variables and the possibility of comparing different animal models based on actual value changes within a relative context. The RELSA procedure will allow close severity monitoring of individual animals and bulk analysis of overall reached severity levels of entire models.</p>
 </div>
 <div id="what-is-relsa-not" class="section level3">
 <h3 class="hasAnchor">
 <a href="#what-is-relsa-not" class="anchor"></a>What is RELSA not?</h3>
 <p>Foremost, RELSA is not (yet) a predictor of death in laboratory animals!</p>
-<p>At its current stage of development, it is meant as a guideline or tool for researchers working with laboratory animals. The package was designed for monitoring the relative severity of individual animals and can also be used to determine the overall severity level of entire animal models. It is not (yet) meant as a unified solution for a) the definition b) grading and c) objective classification of severity. Nevertheless, it may help in finding more objective thresholds with more data.</p>
+<p>At its current stage of development, it is meant as a guideline or tool for researchers working with laboratory animals. The package was designed for monitoring the relative severity of individual animals and can also be used to determine the overall severity level of entire animal models. It is not (yet) meant as a unified solution for a) the definition, b) grading, and c) objective classification of severity. Nevertheless, it may help in finding more objective thresholds with more data.</p>
 </div>
 <div id="dependencies" class="section level2">
 <h2 class="hasAnchor">
@@ -126,28 +126,25 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>The following commands can be used in R to download and install the developer version of the RELSA package. The second command is required to build the associated vignettes (if needed).</p>
-<pre><code><a href="https://devtools.r-lib.org//reference/remote-reexports.html">devtools::install_github("mytalbot/relsa", build_vignettes = TRUE)</a></code></pre>
+<pre><code><a href="https://devtools.r-lib.org/reference/remote-reexports.html">devtools::install_github("mytalbot/relsa", build_vignettes = TRUE)</a></code></pre>
 </div>
 </div>
 <div id="relsa-background" class="section level1">
 <h1 class="hasAnchor">
 <a href="#relsa-background" class="anchor"></a>RELSA background</h1>
 <p><strong>RELSA in one sentence:</strong> The RELSA score is a generalized quantification of multi-variable differences.</p>
-<p>Variable changes are monitored with regard to their baseline or physiological states and the changes are stored. For this to work, input data need to have a single baseline value (which can be the mean value of a previously run baseline period, etc).</p>
-<p>With data from a well-defined reference set, the severity context can be extrapolated. Trivially, the extrema (min/max) of each variable in the reference set serve as ranges for the given severity context. However, there is one caveat: researchers must provide some sort of estimation about the quality of severity in the reference experiment. This is one reason why the RELSA score is a relative score. All variable changes in other data are mapped towards the general severity level of the reference set.</p>
-<p>It does not matter, however, if this severity is classified as “low”, “medium” or “severe”. The relative context will shift the scale to lower or higher values, depending on the maximum escalations in the reference set. The final RELSA score is calculated from weight factors (which are specific RELSA <strong>effect sizes</strong>) and is regularized by the extrema from the reference set. At last, special focus is laid on the fact that larger weights are more important than smaller changes in terms of severity, which is included in the final score.</p>
-<p>Missing data are set to NA and not to zero or imputed otherwise. If set to zero, this would allow recognition of those elements in the calculations of, e.g. the mean. The result would be a skewed reflection of what actually happens in the data towards unimportant values. Introducing NAs allows a more fair calculation of the score in terms of potential severity, as these values will not be included in the calculations. This lays more focus on actually present variables and allows the calculation of RELSA scores for data sets with lots of missing data. Thus, the RELSA score is an abstraction of what actually happens in the data at specific time points.</p>
-<p>Besides providing context, the reference set has another purpose: it regularizes the possible ranges of variables. This can prove essential, as variables behave differently when animals are negatively affected. For example, a loss of 17 % in body weight is generally recognized as being a rather substantial threat to animal health. At the same time, burrowing behavior may drop to zero %. Here, a difference of 17 % is equivalent to 100 % at the same time of observation. However, in other animal models, this may not be the case. By comparing the actual ranges to the reference set, this kind of bias is regularized resulting in the weight factors.</p>
-<p>A conclusion from this would be that certain parameters are lagging, others are leading, or, that interactions are model-dependent. The main issues here are not the parameters themselves but rather the experimental design and sampling frequency. Body weight is measured, e.g. once per day (i.e. in the morning) and burrowing behavior after a certain time period (after 2 hours or after one night period). The sampling rates in these cases are a) not equal and b) not frequent enough to catch minute changes. Transient ranges of some variables thus appear as “all-or-nothing” parameters. They change much faster than the sampling rates so that the exact development over time cannot be seen.</p>
-<p>Although the sampling rate cannot be corrected with RELSA, the skewness in distribution can be adjusted to a certain degree by including extreme values of a training or reference model with known severity into the calculation. These values are called baseline (severity) values for the given animal model.</p>
-<p>The RELSA score itself is pretty easy to interpret. If it shows, e.g. 0.85 it translates that the variables in a test animal have reached 85 % of the (generalized) maximum deviation level of the reference set. If values are larger than 1 (100 %), this is a good indication for higher severity than within the reference set. This is particularly interesting for data sets with different numbers of variables: some might perform better than others.</p>
+<p>Variable changes are monitored concerning their baseline or physiological states, and they are stored. For this to work, input data need to have a single baseline value (e.g., the mean value of a previously run baseline period, etc.).</p>
+<p>The severity context can be extrapolated with data from a well-defined reference set. Trivially, the extrema (min/max) of each variable in the reference set serve as ranges for the given severity context. However, there is one caveat: researchers must provide some sort of estimation about the quality of severity in the reference experiment. This assessment is one reason why the RELSA score is relative. Therefore, all variable changes in other data are mapped towards the general severity level of the reference set.</p>
+<p>It does not matter, however, if this severity is classified as “low”, “medium” or “severe”. The relative context will shift the scale to lower or higher values, depending on the maximum escalations in the reference set. The final RELSA score is calculated from weight factors (specific RELSA <strong>effect sizes</strong>) and is regularized by the extrema in the reference set. At last, particular focus is on the fact that larger weights are more important than more minor changes in terms of severity, which is included in the final score.</p>
+<p>Missing data are set to NA and not to zero or imputed otherwise. If set to zero, this would allow recognizing those elements in the calculations of, e.g., the mean. The result would be a skewed reflection of what happens in the data towards unimportant values. Introducing NAs allows a more fair calculation of the score regarding potential severity, as these values will not be included in the calculations. This lays more focus on actual present variables and calculates RELSA scores for data sets with lots of missing data. Thus, the RELSA score is an abstraction of what happens in the data at specific time points.</p>
+<p>Besides providing context, the reference set has another purpose: it regularizes the possible ranges of variables. This can prove essential, as variables behave differently when animals are negatively affected. For example, a loss of 17 % in body weight is generally recognized as a rather substantial threat to animal health. At the same time, burrowing behavior may drop to zero %. Here, a difference of 17 % is equivalent to 100 % at the same time of observation. However, in other animal models, this may not be the case. By comparing the actual ranges to the reference set, this kind of bias is regularized, resulting in the weight factors.</p>
+<p>A conclusion would be that certain parameters are lagging, others are leading, or interactions are model-dependent. The main issues here are not the parameters themselves but rather the experimental design and sampling frequency. For example, body weight is measured, e.g., once per day (i.e. in the morning) and burrowing behavior after a specific time (overnight). The sampling rates in these cases are a) not equal and b) not frequent enough to catch minute changes. Transient ranges of some variables thus appear as “all-or-nothing” parameters. They change much faster than the sampling rates so that the exact development over time cannot be seen. Although the sampling rate cannot be corrected with RELSA, the skewness in distribution can be adjusted to a certain degree by including extreme values of a training or reference model with known severity into the calculation. These values are called baseline (severity) values for the given animal model. The RELSA score itself is pretty easy to interpret. A RELSA of, e.g., 0.85 means that the variables in a test animal have reached 85 % of the (generalized) maximum deviation level of the reference set. If values are larger than 1 (100 %), this indicates higher severity than within the reference set. This is particularly interesting for data sets with different variables: some might perform better than others.</p>
 <div id="data-design" class="section level3">
 <h3 class="hasAnchor">
 <a href="#data-design" class="anchor"></a>Data design</h3>
-<p>For the current version of RELSA, the tabular data must follow a specific format. It can be loaded as *.txt file in the tab-delimited format using the <code>relsa_load</code> function. Variable names should be simple but recognizable such as bw (body weight), body weight change (bwc), bur2h (burrowing 2 h), burON (burrowing overnight), mgs (mouse grimace scale), etc. The variable names must match the names in the reference model.</p>
-<p>The table should have an index column (the first one) without a header. The animal id should be a short but unique identifier. The treatment column contains experimental information, e.g. about the nature of an experiment (Transmitter/Sham, etc). The condition column includes additional information such as anesthesia, death or any other “condition” you might want to include. At the moment, only two columns can be used to specify conditions for filtering. Both can be used as specifications in the <code>relsa_load</code> function to load subsets of the data.</p>
-<p>The “day” column contains the time information of the data. <strong>This column should be of equal length for each animal</strong> in the table even if there are no data. Just leave the fields empty. If data are not entered at the same length. The <code>relsa_load</code> function will take care of this (and will show a warning). The RELSA convention for baseline coding is -1. However, you can design this column differently (e.g. hours instead of days), as long as it is continuously increasing.</p>
-<p><strong>IMPORTANT:</strong> The variables in the baseline/training data must match the names in the test data which are very likely to come from a different table.</p>
+<p>For the current version of RELSA, the tabular data must follow a specific format. It can be loaded as *.txt file in the tab-delimited format using the <code>relsa_load</code> function. Variable names should be recognizable but straightforward, such as bw (body weight), body weight change (bwc), burON (burrowing overnight), etc. The variable names must match the names in the reference model. The table should have an index column (the first one) without a header. The animal id should be a short but unique identifier. The treatment column contains experimental information, e.g., about the nature of an experiment (Transmitter/Sham, etc.). The condition column includes additional information such as anesthesia, death, or any other “condition” that should be included. Currently, only two columns can be used to specify conditions for filtering. However, both can be used as specifications in the <code>relsa_load</code> function to load subsets of the data.</p>
+<p>The “day” column contains the time information of the data. <strong>This column should be of equal length for each animal</strong> in the table even if there are no data. Just leave the fields empty. If data are not entered with the same length, the <code>relsa_load</code> function will take care of this (and will show a warning). The RELSA convention for baseline coding is -1. However, you can design this column differently (e.g., hours instead of days), as long as it continuously increases.</p>
+<p><strong>IMPORTANT:</strong> The variables in the baseline/training data must match the names in the test data, which are very likely to come from a different table.</p>
 <table class="table">
 <thead><tr class="header">
 <th align="left"></th>
@@ -208,30 +205,30 @@
 <a href="#relsa_load" class="anchor"></a>relsa_load</h3>
 <pre><code><a href="../reference/relsa_load.html"># This function will load RELSA raw data as a data.frame.
 relsa_load(file, treatment=NULL, condition=NULL)</a></code></pre>
-<p>The <code>relsa_load</code> function is used to import both, training and testdata. It uses the <code>file</code> argument with a complete string to the sample file (including the <em>testfile.txt</em>). The <code>treatment/condition</code> fields can used to subsample the loaded files (e.g. if the data contains both, transmitter and sham data. With <code>treatment="transmitter"</code>, only data from the “transmitter” experiment will be loaded (the spelling is case sensitive!).</p>
+<p>The <code>relsa_load</code> function is used to import training and test data. It uses the <code>file</code> argument with a complete string to the sample file (including the <em>testfile.txt</em>). The <code>treatment/condition</code> fields can be used to subsample the loaded files (e.g., if the data contains both transmitter and sham data. With <code>treatment="transmitter"</code>, only data from the “transmitter” experiment will be loaded (the spelling is case sensitive!).</p>
 </div>
 <div id="relsa_norm" class="section level3">
 <h3 class="hasAnchor">
 <a href="#relsa_norm" class="anchor"></a>relsa_norm</h3>
 <pre><code><a href="../reference/relsa_norm.html"># This function will normalize specified variables to the range [0;100].
 relsa_norm(set, normthese=NULL, ontime=1)</a></code></pre>
-<p><code>set</code> contains the loaded data frame obtained by <code>relsa_load</code>. The specified variables in <code>normthese</code> will be normalized to a range of [0;100]. <strong>Important note: variables that are not specified are not normalized!</strong> This function can also be used for the normalization of other data sets. Some variables like body weigh change (bwc) that are sometimes pre-calculated in the data tables do not need normalization and must therefore not be specified in the function. The field <code>ontime</code> specifies the timepoint in the data set to which the data in each colum should be normalized. Please note that this is not a string for the actual name of the time unit but the absolute position (rowname) in the data.frame (if, e.g. baseline values (day = -1) are at position 1 and this is the very first entry in the table, ontime=1).</p>
+<p><code>set</code> contains the loaded data frame obtained by <code>relsa_load</code>. The specified variables in <code>normthese</code> will be normalized to a range of [0;100]. <strong>Important note: variables that are not specified are not normalized!</strong> This function can also be used to normalize other data sets. For example, some variables like body weigh change (bwc) that are sometimes pre-calculated in the data tables do not need normalization and must, therefore, not be specified in the function. The field <code>ontime</code> specifies the timepoint in the data set to which the data in each column should be normalized. Please note that this is not a string for the actual name of the time unit but for the absolute position (row name) in the data frame (if, e.g., baseline values (day = -1) are at position 1, and this is the very first entry in the table, ontime=1).</p>
 </div>
 <div id="relsa_levels" class="section level3">
 <h3 class="hasAnchor">
 <a href="#relsa_levels" class="anchor"></a>relsa_levels</h3>
-<pre><code># This function will calculate k+1 levels from kmeans analysis of the reference data for severity classification.
+<pre><code><a href="../reference/relsa_levels.html"># This function will calculate k+1 levels from kmeans analysis of the reference data for severity classification.
 relsa_levels(refset, mypath, filename, drops=NULL, turns=NULL, relsaNA=NA, k=4,
-                         showScree="no", customCol=NULL, seed=123, myYlim=c(0,1.4), saveTiff="yes")</code></pre>
-<p><code>refset</code> is the normalized reference data frame. With the arguments <code>mypath</code> and <code>filename</code> the path and name of the final *.tiff file can be specified. <code>k</code>, <code>turns</code> determines the number of clusters in the data. The exact number must be found heuristically by using the internalized Scree plot. If <code>showScree</code> is set to “yes”, the Scree plot is shown. <code>customCol</code> can be used to specify custom colors for the clusters. The color vector should be as long as the number of clusters. <code>seed</code> controls the random seeding and can be turned off with NULL. With <code>myYlim</code> the range of the y-axis can be controlled and <code>saveTiff</code> controls whether the final *.tiff file shall be plotted.</p>
+                         showScree="no", customCol=NULL, seed=123, myYlim=c(0,1.4), saveTiff="yes")</a></code></pre>
+<p><code>refset</code> is the normalized reference data frame. With the arguments <code>mypath</code> and <code>filename</code> the path and name of the final *.tiff file can be specified. <code>k</code>, <code>turns</code> determines the number of clusters in the data. The exact number must be found heuristically by using the internalized Scree plot. If <code>showScree</code> is set to “yes”, the Scree plot is shown. <code>customCol</code> can be used to specify custom colors for the clusters. The color vector should be as long as the number of clusters. <code>seed</code> controls the random seeding and can be turned off with NULL. With <code>myYlim</code> the range of the y-axis can be controlled, and <code>saveTiff</code> controls whether the final *.tiff file shall be plotted.</p>
 </div>
 <div id="relsa_baselines" class="section level3">
 <h3 class="hasAnchor">
 <a href="#relsa_baselines" class="anchor"></a>relsa_baselines</h3>
-<pre><code># This function will establish baseline values for RELSA calculation.
+<pre><code><a href="../reference/relsa_baselines.html"># This function will establish baseline values for RELSA calculation.
 relsa_baselines(dataset=NULL, bslday=-1, variables=NULL, turnvars=NULL)
-</code></pre>
-<p>The <code>relsa_baselines</code> function is used to build baseline values from the provided reference data. It may be necessary to load and normalize the data with the two previously mentioned functions. <code>dataset</code> should contain only normalized values (range [0;100]). <code>bslday</code> points to the actual value of the time column that is to be used as baseline value (the default value is day = -1). <code>variables</code> contains a string with the actual variables for which RELSA scores shall be calculated. The testvariables in the later testset should be included here as well. Otherwise, they will not be calculated or the function will produce an error. The field <code>turnvars</code> is important for variables that show increasing values under duress as opposed to variables showing a decrease in values such as body weight. These variables can be specified as such: <code>turnvars=c("hr","score")</code> etc. The output of the function is twofold: a) a matrix for each variable in the model with 100 % as maximum normalized value and b) a vector with maximum/minimum reached variable values (not normalized!) in the training model.</p>
+</a></code></pre>
+<p>The <code>relsa_baselines</code> function builds baseline values from the provided reference data. It may be necessary to load and normalize the data with the two previously mentioned functions. <code>dataset</code> should contain only normalized values (range [0;100]). <code>bslday</code> points to the actual value of the time column that is to be used as baseline value (the default value is day = -1). <code>variables</code> contains a string with the actual variables for which RELSA scores shall be calculated. The test variables in the later test set should be included here as well. Otherwise, they will not be calculated, or the function will produce an error. The field <code>turnvars</code> is important for variables that show increasing values under duress instead of variables showing a decrease in values such as body weight. These variables can be specified as such: <code>turnvars=c("hr","temp")</code> etc. The function’s output is twofold: a) a matrix for each variable in the model with 100 % as maximum normalized value and b) a vector with maximum/minimum reached variable values (not normalized!) in the training model.</p>
 </div>
 <div id="relsa_reference" class="section level3">
 <h3 class="hasAnchor">
@@ -245,55 +242,55 @@ relsa_reference()</a></code></pre>
 <a href="#relsa" class="anchor"></a>relsa</h3>
 <pre><code><a href="../reference/relsa.html"># This is the actual RELSA function.
 relsa (set, bsl, a=1, drop=NULL, turnvars=NULL, relsaNA=0 )</a></code></pre>
-<p><code>relsa</code> accepts normalized (testdata) from the <code>relsa_norm</code> function for analysis. However, it is possible to assess the training model as well. <code>bsl</code> is the object obtained from the <code>relsa_baselines</code> function for model referencing. <code>a</code> is the number of unique animals/animal in the set. <code>drop</code> can be used to exclude variables that are contained in the training model but shall be excluded from further analysis (e.g. drop=c(“bw”,“score”)). <code>turnvars</code> is again used to indicate variables with switched orientation. Sometimes calculations produce NaN. <code>relsaNA</code> determines how to substitute these values (default is 0).</p>
+<p><code>relsa</code> accepts normalized (test data) from the <code>relsa_norm</code> function for analysis. However, it is possible to assess the training model as well. <code>bsl</code> is the object obtained from the <code>relsa_baselines</code> function for model referencing. <code>a</code> is the number of unique animals/animals in the set. <code>drop</code> can be used to exclude variables that are contained in the training model but shall be excluded from further analysis (e.g. drop=c(“bw”)). <code>turnvars</code> is again used to indicate variables with switched orientation. Sometimes calculations produce NaN. <code>relsaNA</code> determines how to substitute these values (default is 0).</p>
 </div>
 <div id="relsa_plot" class="section level3">
 <h3 class="hasAnchor">
 <a href="#relsa_plot" class="anchor"></a>relsa_plot</h3>
 <pre><code><a href="../reference/relsa_plot.html"># This function can be used to plot the RELSA score.
 relsa_plot (set=NULL, RELSA, levels=NULL, animal=1, plotvar=NULL, plotRELSA=TRUE, myylim=c(70,110), myYlim=c(0,2), mypch=1, mycol="red")</a></code></pre>
-<p><code>set</code> contains the loaded data frame obtained by <code>relsa_load</code> and <code>RELSA</code> the output from the <code>relsa</code> function. The <code>levels</code> argument accepts the level output from the <code>relsa_levels</code> function. The specific animal to be plotted is defined with the unique animal number in <code>animal</code>. Each variable can be plotted individually by controlling the variable name in the <code>plotvar</code> field (e.g. plotvar=“bwc”). With the <code>plotRELSA</code> argument the RELSA score is plotted in addition to the variable. <code>myylim</code> controls the range of the first Y-axis on the left side of the plot and <code>myYlim</code> for the RELSA score on the left side if plotvar is not NULL. The pch argument controls the dot type (default is 1).</p>
+<p><code>set</code> contains the loaded data frame obtained by <code>relsa_load</code> and <code>RELSA</code> the output from the <code>relsa</code> function. The <code>levels</code> argument accepts the level output from the <code>relsa_levels</code> function. The specific animal to be plotted is defined with the unique animal number in <code>animal</code>. Each variable can be plotted individually by controlling the variable name in the <code>plotvar</code> field (e.g. plotvar=“bwc”). With the <code>plotRELSA</code> argument, the RELSA score is plotted in addition to the variable. <code>myylim</code> controls the range of the first Y-axis on the left side of the plot and <code>myYlim</code> for the RELSA score on the left side if plotvar is not NULL. The pch argument controls the dot type (default is 1).</p>
 </div>
 <div id="relsa_wrapper" class="section level3">
 <h3 class="hasAnchor">
 <a href="#relsa_wrapper" class="anchor"></a>relsa_wrapper</h3>
-<pre><code><a href="../reference/relsa_wrapper.html"># This function will provide extensive RELSA analysis and the according outputs for further analysis.
+<pre><code><a href="../reference/relsa_wrapper.html"># This function will provide extensive RELSA analysis and the outputs for further research.
 relsa_wrapper(querydata, bsl = NULL, levels = levels, treatment = NULL, condition = NULL, normthese = NULL, turnsQuery = NULL, dropsQuery = NULL, animalnr = NULL, ymax = 1.2, pcadims = 2, studylabel = NULL, severity = NULL, colorlabel = NULL)</a></code></pre>
-<p>The object <code>querydata</code> requires a path including the *.txt filename with the raw data in the RELSA format.<code>bsl</code> is the field for the baseline information from either the <code>relsa_load</code> or <code>relsa_reference</code> function. <code>levels</code> contain the specific RELSA levels from the k-means clustering of the reference model. These values can be changed here (this is not recommended). The <code>treatment/condition</code> fields can used to subsample the loaded data. The <code>normthese</code> field defines the variables that need normalisation. <code>turnsQuery/dropsQuery</code> code for the variables in the querydata that need “turning” or that shall be dropped from the analysis. This can be used to exclude data columns that have no representation in the reference model. After the wrapper function has finished an example animal is shown which is specified with <code>animalnr</code>. <code>ymax</code> codes the maximum range of the y-axis. <code>pcadims</code> codes the maximum number of principla components that are analysed for variable contributions. A custom <code>studylabel</code> can be assingned to the output data frames. A custom <code>severity</code> level can be assingned to the output data frames. A custom <code>colorlabel</code> can be assingned to the output data frames.</p>
+<p>The object <code>querydata</code> requires a path including the *.txt filename with the raw data in the RELSA format.<code>bsl</code> is the field for the baseline information from either the <code>relsa_load</code> or <code>relsa_reference</code> function. <code>levels</code> contain the specific RELSA levels from the k-means clustering of the reference model. These values can be changed here (this is not recommended). The <code>treatment/condition</code> fields can subsample the loaded data. The <code>normthese</code> field defines the variables that need normalisation. <code>turnsQuery/dropsQuery</code> code for the variables in the querydata that need “turning” or that shall be dropped from the analysis. This can exclude data columns that have no representation in the reference model. After the wrapper function has finished, an example animal is shown, specified with <code>animalnr</code>. <code>ymax</code> codes the maximum range of the y-axis. <code>pcadims</code> codes the maximum number of principal components are analyzed for variable contributions. A custom <code>studylabel</code> can be assigned to the output data frames. A custom <code>severity</code> level can be assigned to the output data frames. A custom <code>colorlabel</code> can be assigned to the output data frames.</p>
 </div>
 </div>
 <div id="working-example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#working-example" class="anchor"></a>Working example</h2>
-<p>Uses the internal <code>postop</code> dataset for analysis.</p>
-<pre><code>library(RELSA)
+<p>Uses the internal <code>postop</code> dataset</p>
+<pre><code><a href="https://github.com/mytalbot/RELSA">library(RELSA)
 
 # Build model -------------------------------------------------------------
-raw          &lt;- postop
-vars         &lt;- c("bwc", "bur2h", "burON", "hr", "hrv", "temp", "act", "mgs")
-turnvars     &lt;- c("hr", "mgs", "temp")
+raw          &lt;- surgery
+vars         &lt;- c("bwc", "burON", "hr", "hrv", "temp", "act")
+turnvars     &lt;- c("hr","temp")
 pre          &lt;- relsa_norm(raw, 
-                           normthese = c("bur2h", "burON", "hr", "hrv", "temp", "act", "mgs"))
+                           normthese = c("hr", "hrv", "temp", "act"))
                            
 refmodel     &lt;- relsa_reference()       
 
 # Test model --------------------------------------------------------------
 animal       &lt;- 1
 RELSA        &lt;- relsa(set = pre, bsl=refmodel[[1]], a = animal, 
-                      drop=c("bw", "score", "mgs30", "mgs180"), turnvars = turnvars)
-head(RELSA$relsa$rms)</code></pre>
+                      drop=NULL, turnvars = turnvars)
+head(RELSA$relsa$rms)</a></code></pre>
 <div id="references" class="section level3 unnumbered">
 <h3 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h3>
 <div id="refs" class="references">
 <div id="ref-factorminerpackage">
-<p>Lê, Sébastien, Julie Josse, and François Husson. 2008. “FactoMineR: A Package for Multivariate Analysis.” <em>Journal of Statistical Software</em> 25 (1): 1–18. <a href="https://doi.org/10.18637/jss.v025.i01" class="uri">https://doi.org/10.18637/jss.v025.i01</a>.</p>
+<p>Lê, Sébastien, Julie Josse, and François Husson. 2008. “FactoMineR: A Package for Multivariate Analysis.” <em>Journal of Statistical Software</em> 25 (1): 1–18. <a href="https://doi.org/10.18637/jss.v025.i01">https://doi.org/10.18637/jss.v025.i01</a>.</p>
 </div>
 <div id="ref-talbot_joint">
-<p>Talbot, Steven R, Stefan Bruch, Fabian Kießling, Michael Marschollek, Branko Jandric, René H Tolba, and André Bleich. 2020. “Design of a Joint Research Data Platform: A Use Case for Severity Assessment.” <em>Laboratory Animals</em> 54 (1): 33–39. <a href="https://doi.org/10.1177/0023677219872228" class="uri">https://doi.org/10.1177/0023677219872228</a>.</p>
+<p>Talbot, Steven R, Stefan Bruch, Fabian Kießling, Michael Marschollek, Branko Jandric, René H Tolba, and André Bleich. 2020. “Design of a Joint Research Data Platform: A Use Case for Severity Assessment.” <em>Laboratory Animals</em> 54 (1): 33–39. <a href="https://doi.org/10.1177/0023677219872228">https://doi.org/10.1177/0023677219872228</a>.</p>
 </div>
 <div id="ref-dplyrcite">
-<p>Wickham, Hadley, Romain François, Lionel Henry, and Kirill Müller. 2020. <em>Dplyr: A Grammar of Data Manipulation</em>. <a href="https://CRAN.R-project.org/package=dplyr" class="uri">https://CRAN.R-project.org/package=dplyr</a>.</p>
+<p>Wickham, Hadley, Romain François, Lionel Henry, and Kirill Müller. 2020. <em>Dplyr: A Grammar of Data Manipulation</em>. <a href="https://CRAN.R-project.org/package=dplyr">https://CRAN.R-project.org/package=dplyr</a>.</p>
 </div>
 <div id="ref-Yes2015">
 <p>Yes, Lazyload, Scott Waichler, and Color Schemes. 2015. “Package ‘ dichromat ’.”</p>
@@ -319,7 +316,7 @@ head(RELSA$relsa$rms)</code></pre>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

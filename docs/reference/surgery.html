@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>RELSA Default Reference Model — relsa_reference • RELSA</title>
+<title>Transmitter operated mice — surgery • RELSA</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,12 @@
 
 
 
-<meta property="og:title" content="RELSA Default Reference Model — relsa_reference" />
-<meta property="og:description" content="The relsa_reference functions calculates the default RELSA reference model - to keeps things simple.
-The reference set is the surgery data (transmitter-implanted, female B6 mice)" />
+<meta property="og:title" content="Transmitter operated mice — surgery" />
+<meta property="og:description" content="Data from a transmitter implantation experiment with various behavioural data. Also includes sham-operated animals.
+Observation time was over 30 days, starting with day=-1 as baseline (physiological state). The treatment columns shows
+what operational state the animal is in and the condition field shows two possible types of analgesia. The data comprise
+the outcome measures: body weight change (bwc), burrowing overnight (burON), heart rate (hr), heart rate variability (hrv),
+temperature (temp) and activity (act)." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -135,27 +138,43 @@ The reference set is the surgery data (transmitter-implanted, female B6 mice)" /
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>RELSA Default Reference Model</h1>
-    <small class="dont-index">Source: <a href='https://github.com/mytalbot/RELSA/blob/master/R/relsa_reference.R'><code>R/relsa_reference.R</code></a></small>
-    <div class="hidden name"><code>relsa_reference.Rd</code></div>
+    <h1>Transmitter operated mice</h1>
+    <small class="dont-index">Source: <a href='https://github.com/mytalbot/RELSA/blob/master/R/surgery.R'><code>R/surgery.R</code></a></small>
+    <div class="hidden name"><code>surgery.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The <code>relsa_reference</code> functions calculates the default RELSA reference model - to keeps things simple.
-The reference set is the surgery data (transmitter-implanted, female B6 mice)</p>
+    <p>Data from a transmitter implantation experiment with various behavioural data. Also includes sham-operated animals.
+Observation time was over 30 days, starting with day=-1 as baseline (physiological state). The treatment columns shows
+what operational state the animal is in and the condition field shows two possible types of analgesia. The data comprise
+the outcome measures: body weight change (bwc), burrowing overnight (burON), heart rate (hr), heart rate variability (hrv),
+temperature (temp) and activity (act).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>relsa_reference</span><span class='op'>(</span>
-  vars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"bwc"</span>, <span class='st'>"burON"</span>, <span class='st'>"hr"</span>, <span class='st'>"hrv"</span>, <span class='st'>"temp"</span>, <span class='st'>"act"</span><span class='op'>)</span>,
-  normthese <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"hr"</span>, <span class='st'>"burON"</span>, <span class='st'>"hrv"</span>, <span class='st'>"temp"</span>, <span class='st'>"act"</span><span class='op'>)</span>,
-  turnthese <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"hr"</span>, <span class='st'>"temp"</span><span class='op'>)</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>surgery</span><span class='op'>)</span></pre>
 
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>list with baselines (bsl) and cluster levels (levels)</p>
+    <p>A 840 x 10 data frame with surgery data (transmitter implantation).</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>surgery</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>surgery</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;       id   treatment condition day       bwc    burON       hr       hrv
+#&gt; 1 Ca_001 Transmitter Carprofen  -1 100.00000 71.94116 453.5596 12.432154
+#&gt; 2 Ca_001 Transmitter Carprofen   0  87.50000 44.69154 660.5897  2.051861
+#&gt; 3 Ca_001 Transmitter Carprofen   1  90.76087 97.63948 584.9174  4.843867
+#&gt; 4 Ca_001 Transmitter Carprofen   2  92.93478 99.00850 538.0367  6.767956
+#&gt; 5 Ca_001 Transmitter Carprofen   3  94.02174       NA 482.1560  7.072865
+#&gt; 6 Ca_001 Transmitter Carprofen   4  94.02174 69.16020 525.5229  7.134940
+#&gt;       temp     act
+#&gt; 1 36.61165 1064.84
+#&gt; 2 36.18393  125.54
+#&gt; 3 37.49761  407.34
+#&gt; 4 37.13743  351.64
+#&gt; 5 36.71055  286.28
+#&gt; 6 37.08358  387.30</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -45,7 +45,7 @@ relsa <- function(set, bsl, a=1, drop=NULL, turnvars=NULL, relsaNA=NA ){
     bsdelta          <- 100 - bsl$maxsev
   }else{
     delta            <- 100 - subdata[-1]
-    delta[,turnvars] <- abs(delta[, turnvars]) #* -1
+    delta[,turnvars] <- delta[, turnvars] *-1 # abs(delta[, turnvars])
 
     bsdelta          <- abs(100 - bsl$maxsev)     # for the extreme values of baseline vars
     bsdelta[turnvars]<- abs(bsdelta[turnvars])    #* -1
@@ -53,6 +53,9 @@ relsa <- function(set, bsl, a=1, drop=NULL, turnvars=NULL, relsaNA=NA ){
 
   ### set all negative values to NA - otherwise zero would allow usage in the mean!
   delta[delta<0]     <- 0
+
+
+
 
   # round delta
   delta              <- round(delta,2)

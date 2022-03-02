@@ -4,11 +4,16 @@
 \alias{relsa_reference}
 \title{RELSA Default Reference Model}
 \usage{
-relsa_reference()
+relsa_reference(
+  vars = c("bwc", "burON", "hr", "hrv", "temp", "act"),
+  normthese = c("hr", "burON", "hrv", "temp", "act"),
+  turnthese = c("hr", "temp")
+)
 }
 \value{
 list with baselines (bsl) and cluster levels (levels)
 }
 \description{
 The \code{relsa_reference} functions calculates the default RELSA reference model - to keeps things simple.
+The reference set is the surgery data (transmitter-implanted, female B6 mice)
 }

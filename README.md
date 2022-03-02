@@ -10,16 +10,16 @@ status](https://travis-ci.org/mytalbot/RELSA.svg?branch=master)](https://travis-
 ## Relative Severity Assessment Score (RELSA)
 
 The RELSA package contains a set of functions for **assessing relative
-severity in laboratory animals**. In animal-based research the problem
+severity in laboratory animals**. In animal-based research, the problem
 of severity classification is crucial. As animals cannot communicate
 their state of well-being, scientists need reliable tools for monitoring
 severity as closely as possible. It has been shown that a diversity of
-behavioural tests (and others) may serve this purpose. However, the main
+behavioral tests (and others) may serve this purpose. However, the main
 issue with these approaches is that they are rather specific and
-difficult to transfer. A comprehensive and easy to use toolbox for the
-assessment and comparison of different variables and animal models is
-missing. RELSA offers a first glimpse into this matter by combining any
-set of experimental outcome variables into a single composite score.
+challenging to transfer. A comprehensive and easy-to-use toolbox for
+assessing and comparing different variables and animal models is
+missing. RELSA offers the first glimpse into this matter by combining
+any set of experimental outcome variables into a single composite score.
 
 ## Installation
 
@@ -42,7 +42,7 @@ found in the GitHub repository folder “raw\_data”. Data are stored in
 four \*.txt files. [Here is the direct
 link](https://github.com/mytalbot/RELSA/tree/master/raw_data). The data
 in the file “tm\_post-op.txt” is also internalized in the RELSA package
-and can be called with: `RELSA::postop`.
+and can be called with: `RELSA::surgery`.
 
 ## Example
 
@@ -50,25 +50,24 @@ and can be called with: `RELSA::postop`.
 library(RELSA)
 
 # Build model -------------------------------------------------------------
-raw          <- RELSA::postop
-vars         <- c("bwc", "bur2h", "burON", "hr", "hrv", "temp", "act", "mgs")
-turnvars     <- c("hr", "mgs", "temp" )
+raw          <- RELSA::surgery
+vars         <- c("bwc", "burON", "hr", "hrv", "temp", "act")
+turnvars     <- c("hr", "temp" )
 pre          <- relsa_norm(cbind(raw[,1:4], raw[,vars]), 
-                           normthese = c("bur2h", "burON", "hr", "hrv", "temp", "act", "mgs"), ontime = 1)
+                           normthese = c("burON", "hr", "hrv", "temp", "act"), ontime = 1)
 bsl          <- relsa_baselines(dataset = pre, bslday = -1, variables = vars, turnvars = turnvars)
-levels       <- relsa_levels(pre, bsl = bsl, drops = c("bw", "score"), turns = c("hr", "mgs", "temp"),
+levels       <- relsa_levels(pre, bsl = bsl, drops = NULL, turns = c("hr","temp"),
                              k = 4, customCol = c("red", "green", "blue", "magenta"))
 
 # Test model --------------------------------------------------------------
 animal       <- 1
-RELSA        <- relsa(set = pre, bsl, a = animal, 
-                      drop= c("bw", "score", "mgs30", "mgs180"), turnvars = turnvars)
+RELSA        <- relsa(set = pre, bsl, a = animal, turnvars = turnvars)
 head(RELSA$relsa$rms)
 #>    rms
 #> 1 0.00
-#> 2 0.69
-#> 3 0.49
-#> 4 0.40
+#> 2 0.73
+#> 3 0.55
+#> 4 0.44
 #> 5 0.44
-#> 6 0.35
+#> 6 0.41
 ```
