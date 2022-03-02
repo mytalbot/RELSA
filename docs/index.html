@@ -112,11 +112,7 @@
 <div id="relative-severity-score-relsa" class="section level2">
 <h2 class="hasAnchor">
 <a href="#relative-severity-score-relsa" class="anchor"></a>Relative Severity Score (RELSA)</h2>
-<p>The RELSA package contains a set of functions for <strong>assessing relative severity in laboratory animals</strong>. In animal-based research the problem of severity classification is crucial. As animals cannot communicate their state of well-being, scientists need reliable tools for monitoring severity as closely as possible. It has been shown that a diversity of behavioural tests (and others) may serve this purpose. However, the main issue with these approaches is that they are rather specific and difficult to transfer. A comprehensive and easy to use toolbox for the assessment and comparison of different variables and animal models is missing. RELSA offers a first glimpse into this matter by combining any set of experimental outcome variables into a single composite score.</p>
-</div>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<p>The RELSA package contains a set of functions for <strong>assessing relative severity in laboratory animals</strong>. In animal-based research, the problem of severity classification is crucial. As animals cannot communicate their state of well-being, scientists need reliable tools for monitoring severity as closely as possible. It has been shown that a diversity of behavioral tests (and others) may serve this purpose. However, the main issue with these approaches is that they are rather specific and challenging to transfer. A comprehensive and easy-to-use toolbox for assessing and comparing different variables and animal models is missing. RELSA offers the first glimpse into this matter by combining any set of experimental outcome variables into a single composite score. ## Installation</p>
 <p>You can install the development version of RELSA by running:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"mytalbot/relsa"</span>)</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(RELSA)</span></code></pre></div>
@@ -124,7 +120,7 @@
 <div id="documentation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#documentation" class="anchor"></a>Documentation</h2>
-<p>This package is documented using pkgdown, and the resulting website is available <a href="https://talbotsr.com/RELSA">here</a>, where detailed Tutorials can be found covering all of the package functionality. See reference for detailed function documentation.</p>
+<p>This package is documented using pkgdown, and the resulting website is available <a href="https://talbotsr.com/RELSA">here</a>, where detailed tutorials can be found covering aspects of package functionality. See reference section for detailed function documentation.</p>
 </div>
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
@@ -133,27 +129,27 @@
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mytalbot/RELSA">RELSA</a></span><span class="op">)</span>
 
 <span class="co"># Build model -------------------------------------------------------------</span>
-<span class="va">raw</span>          <span class="op">&lt;-</span> <span class="va">postop</span>
-<span class="va">vars</span>         <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"bwc"</span>, <span class="st">"bur2h"</span>, <span class="st">"burON"</span>, <span class="st">"hr"</span>, <span class="st">"hrv"</span>, <span class="st">"temp"</span>, <span class="st">"act"</span>, <span class="st">"mgs"</span><span class="op">)</span>
-<span class="va">turnvars</span>     <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"hr"</span>, <span class="st">"mgs"</span>, <span class="st">"temp"</span> <span class="op">)</span>
+<span class="va">raw</span>          <span class="op">&lt;-</span> <span class="va">surgery</span>
+<span class="va">vars</span>         <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"bwc"</span>, <span class="st">"burON"</span>, <span class="st">"hr"</span>, <span class="st">"hrv"</span>, <span class="st">"temp"</span>, <span class="st">"act"</span><span class="op">)</span>
+<span class="va">turnvars</span>     <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"hr"</span>, <span class="st">"temp"</span> <span class="op">)</span>
 <span class="va">pre</span>          <span class="op">&lt;-</span> <span class="fu"><a href="reference/relsa_norm.html">relsa_norm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">raw</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, <span class="va">raw</span><span class="op">[</span>,<span class="va">vars</span><span class="op">]</span><span class="op">)</span>, 
-                           normthese <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"bur2h"</span>, <span class="st">"burON"</span>, <span class="st">"hr"</span>, <span class="st">"hrv"</span>, <span class="st">"temp"</span>, <span class="st">"act"</span>, <span class="st">"mgs"</span><span class="op">)</span>, ontime <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+                           normthese <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"burON"</span>, <span class="st">"hr"</span>, <span class="st">"hrv"</span>, <span class="st">"temp"</span>, <span class="st">"act"</span><span class="op">)</span>, ontime <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
 <span class="va">bsl</span>          <span class="op">&lt;-</span> <span class="fu"><a href="reference/relsa_baselines.html">relsa_baselines</a></span><span class="op">(</span>dataset <span class="op">=</span> <span class="va">pre</span>, bslday <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, variables <span class="op">=</span> <span class="va">vars</span>, turnvars <span class="op">=</span> <span class="va">turnvars</span><span class="op">)</span>
-<span class="va">levels</span>       <span class="op">&lt;-</span> <span class="fu"><a href="reference/relsa_levels.html">relsa_levels</a></span><span class="op">(</span><span class="va">pre</span>, bsl <span class="op">=</span> <span class="va">bsl</span>, drops <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"bw"</span>, <span class="st">"score"</span><span class="op">)</span>, turns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"hr"</span>, <span class="st">"mgs"</span>, <span class="st">"temp"</span><span class="op">)</span>,
+<span class="va">levels</span>       <span class="op">&lt;-</span> <span class="fu"><a href="reference/relsa_levels.html">relsa_levels</a></span><span class="op">(</span><span class="va">pre</span>, bsl <span class="op">=</span> <span class="va">bsl</span>, drops <span class="op">=</span> <span class="cn">NULL</span>, turns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"hr"</span>, <span class="st">"temp"</span><span class="op">)</span>,
                              k <span class="op">=</span> <span class="fl">4</span>, customCol <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"red"</span>, <span class="st">"green"</span>, <span class="st">"blue"</span>, <span class="st">"magenta"</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># Test model --------------------------------------------------------------</span>
 <span class="va">animal</span>       <span class="op">&lt;-</span> <span class="fl">1</span>
 <span class="va">RELSA</span>        <span class="op">&lt;-</span> <span class="fu"><a href="reference/relsa.html">relsa</a></span><span class="op">(</span>set <span class="op">=</span> <span class="va">pre</span>, <span class="va">bsl</span>, a <span class="op">=</span> <span class="va">animal</span>, 
-                      drop<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"bw"</span>, <span class="st">"score"</span>, <span class="st">"mgs30"</span>, <span class="st">"mgs180"</span><span class="op">)</span>, turnvars <span class="op">=</span> <span class="va">turnvars</span><span class="op">)</span>
+                      drop<span class="op">=</span> <span class="cn">NULL</span>, turnvars <span class="op">=</span> <span class="va">turnvars</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">RELSA</span><span class="op">$</span><span class="va">relsa</span><span class="op">$</span><span class="va">rms</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">##    rms</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="co">## 1 0.00</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="co">## 2 0.68</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="co">## 3 0.49</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="co">## 4 0.40</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="co">## 2 0.73</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="co">## 3 0.55</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="co">## 4 0.44</span></span>
 <span id="cb3-6"><a href="#cb3-6"></a><span class="co">## 5 0.44</span></span>
-<span id="cb3-7"><a href="#cb3-7"></a><span class="co">## 6 0.35</span></span></code></pre></div>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="co">## 6 0.41</span></span></code></pre></div>
 </div>
 </div>
   </div>
