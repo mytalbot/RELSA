@@ -3,7 +3,7 @@
 \docType{data}
 \name{postop}
 \alias{postop}
-\title{Transmitter operated mice}
+\title{Post-op data of transmitter-implanted mice}
 \format{
 A 840 x 16 data frame with post-op data.
 }
@@ -11,9 +11,13 @@ A 840 x 16 data frame with post-op data.
 data(postop)
 }
 \description{
-Data from a transmitter implantation experiment with various behavioural data. Also includes sham-operated animals.
-Observation time was over 30 days, starting with day=-1 as baseline (physiological state). The treatment columns shows
-what operational state the animal is in and the condition field shows two possible types of analgesia.
+Data from a transmitter implantation experiment with various behavioral
+outcome measures, especially short-term indicators such as the Mouse Grimace
+Scale and the burrowing parameter. The data also include Sham-operated
+animals. The observation time was 30 days, starting with day=-1 as baseline
+(physiological state) and day 0 as the intervention day (surgery).
+The'treatment' column indicates the surgery subgroup and the condition column
+reports the type of analgesia.
 }
 \examples{
 data(postop)
